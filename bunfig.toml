@@ -1,0 +1,9 @@
+[serve.static]
+plugins = ["bun-plugin-tailwind"]
+env = "BUN_PUBLIC_*"
+
+[build]
+plugins = ["bun-plugin-tailwind"]
+
+[bun]
+# 支持 tsconfig.json 的路径别名配置，不需要额外配置

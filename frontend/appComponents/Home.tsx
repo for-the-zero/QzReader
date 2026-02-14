@@ -5,7 +5,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '../components/ui/toolti
 import { Separator } from '../components/ui/separator';
 import { Input } from '../components/ui/input'; 
 // icons
-import { Github, FolderGit2, FileUser } from 'lucide-react'
+import { Github, FolderGit2, FileUser, Database, Images, FileBraces } from 'lucide-react'
 // other
 import { useState } from 'react';
 
@@ -45,19 +45,21 @@ export default function Home({}){
             </Card>
             <Card className='w-full'>
                 <CardHeader>
-                    <CardTitle>转换为SQLite</CardTitle>
+                    <CardTitle>将JSON转换为SQLite</CardTitle>
                     <CardDescription>导入你的json文件以转换为SQLite供该程序使用，如果已转换则跳过</CardDescription>
                 </CardHeader>
                 <CardFooter>
-                    <Button className='w-full'>导入</Button>
+                    <Button className='w-full'><FileBraces />选择文件</Button>
                 </CardFooter>
             </Card>
             <Card className='w-full'>
                 <CardHeader>
-                    <CardTitle>选择SQLite文件</CardTitle>
+                    <CardTitle>选择文件</CardTitle>
+                    <CardDescription>选择要查看的文件，其中转换后的SQLite数据库为必填，图片文件夹为选填</CardDescription>
                 </CardHeader>
-                <CardFooter>
-                    <Button className='w-full'>选择</Button>
+                <CardFooter className='flex flex-row gap-3 justify-around'>
+                    <Button className='flex-1'><Database />SQLite文件</Button>
+                    <Button className='flex-1'><Images />图片文件夹</Button>
                 </CardFooter>
             </Card>
         </div>

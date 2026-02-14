@@ -9,6 +9,8 @@ import Home from './appComponents/Home';
 import Browse from "./appComponents/Browse";
 import Random from "./appComponents/Random";
 import Analysis from './appComponents/Analysis';
+// other
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function App({}){
     const [activeTab, setActiveTab] = useState(0);
@@ -18,7 +20,7 @@ export default function App({}){
             <Sidebar>
                 <SidebarHeader className="p-2.5 flex items-center gap-2 flex-row justify-center">
                     <Archive className="h-6 w-6" />
-                    <h1 className="text-xl font-bold">QzReader</h1>
+                    <h1 className="text-2xl">QzReader</h1>
                 </SidebarHeader>
                 <SidebarContent className="p-2.5">
                     <SidebarMenu>
@@ -49,23 +51,26 @@ export default function App({}){
                     </SidebarMenu>
                 </SidebarContent>
             </Sidebar>
-            <main className="p-5">
-                {activeTab === 0 
-                    ? <Home /> 
-                    : (
-                        activeTab === 1
-                            ? <Browse />
-                            : (
-                                activeTab === 2
-                                    ? <Random />
-                                    : (
-                                        activeTab === 3
-                                            ? <Analysis />
-                                            : null
-                                    )
-                            )
-                    )
-                }
+            <main className="p-5 w-full">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={activeTab}
+                        variants={{
+                            initial: { opacity: 0, scale: 1.02 },
+                            animate: { opacity: 1, scale: 1 },
+                            exit: { opacity: 0, scale: 0.98 },
+                        }}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                        transition={{ duration: 0.1, ease: [0.3, 0.35, 0, 1.00] }}
+                    >
+                        {activeTab === 0 && <Home />}
+                        {activeTab === 1 && <Browse />}
+                        {activeTab === 2 && <Random />}
+                        {activeTab === 3 && <Analysis />}
+                </motion.div>
+            </AnimatePresence>
             </main>
         </SidebarProvider>
     );

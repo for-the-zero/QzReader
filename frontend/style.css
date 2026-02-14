@@ -105,13 +105,14 @@
 body {
     background-color: var(--background);
     color: var(--foreground);
+    font-family: 'Wanted Sans Std Variable', 'Noto Sans SC';
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
+    body {
+        @apply bg-background text-foreground;
     }
 }

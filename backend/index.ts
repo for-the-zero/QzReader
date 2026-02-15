@@ -7,7 +7,8 @@ const server = serve({
         "/": index,
         ...appRoutes
     },
-    development: true,
+    development: !process.env.PRODUCTION,
+    idleTimeout: 45,
 });
 console.log(`Listening on http://localhost:${server.port}`)
 process.on("SIGINT", async() => {

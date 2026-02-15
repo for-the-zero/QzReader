@@ -41,7 +41,7 @@ function safeJsonStringify(data: any, fallback: string = '[]'): string {
     try {
         return JSON.stringify(data ?? []);
     } catch (e) {
-        console.warn('JSON 序列化失败，使用默认值', e);
+        console.warn(e);
         return fallback;
     };
 };
@@ -214,13 +214,13 @@ function convert(src: any, showProgress: boolean = true): Database | string {
     try {
         db = new Database(':memory:');
     } catch (e) {
-        console.error('创建数据库失败', e);
+        console.error(e);
         return '创建数据库失败';
     };
     try {
         db.run(CREATE_TABLE_SQL);
     } catch (e) {
-        console.error('创建表失败', e);
+        console.error(e);
         db.close();
         return '创建表失败';
     };
@@ -228,7 +228,7 @@ function convert(src: any, showProgress: boolean = true): Database | string {
     try {
         insertStmt = db.prepare(INSERT_SQL);
     } catch (e) {
-        console.error('准备插入语句失败', e);
+        console.error(e);
         db.close();
         return '准备插入语句失败';
     };
@@ -267,15 +267,12 @@ function convert(src: any, showProgress: boolean = true): Database | string {
             successCount++;
         } catch (e) {
             failCount++;
-            console.error(`\n插入失败 [${dataType}] 第${i + 1}条: ${item.tid || item.id || '未知ID'}`, e);
+            console.error(e);
         };
         bar?.tick();
     };
     if (bar) {
         bar.terminate();
-    };
-    if (failCount > 0) {
-        console.warn(`转换完成: 成功 ${successCount} 条，失败 ${failCount} 条`);
     };
     return db;
 };
@@ -284,13 +281,13 @@ function convertMultiple(dataArray: any[][], showProgress: boolean = true): Data
     try {
         db = new Database(':memory:');
     } catch (e) {
-        console.error('创建数据库失败', e);
+        console.error(e);
         return '创建数据库失败';
     };
     try {
         db.run(CREATE_TABLE_SQL);
     } catch (e) {
-        console.error('创建表失败', e);
+        console.error(e);
         db.close();
         return '创建表失败';
     };
@@ -298,7 +295,7 @@ function convertMultiple(dataArray: any[][], showProgress: boolean = true): Data
     try {
         insertStmt = db.prepare(INSERT_SQL);
     } catch (e) {
-        console.error('准备插入语句失败', e);
+        console.error(e);
         db.close();
         return '准备插入语句失败';
     };
@@ -340,7 +337,7 @@ function convertMultiple(dataArray: any[][], showProgress: boolean = true): Data
             successCount++;
         } catch (e) {
             failCount++;
-            console.error(`\n插入失败 [shuoshuo]: ${item.tid || '未知ID'}`, e);
+            console.error(e);
         }
         bar?.tick();
     };
@@ -355,15 +352,12 @@ function convertMultiple(dataArray: any[][], showProgress: boolean = true): Data
             successCount++;
         } catch (e) {
             failCount++;
-            console.error(`\n插入失败 [share]: ${item.id || '未知ID'}`, e);
+            console.error(e);
         }
         bar?.tick();
     };
     if (bar) {
         bar.terminate();
-    };
-    if (failCount > 0) {
-        console.warn(`转换完成: 成功 ${successCount} 条，失败 ${failCount} 条`);
     };
     return db;
 };
@@ -386,10 +380,10 @@ export async function convertFromFile(filePaths: string | string[]): Promise<Dat
             src = await file.json();
         } catch (e) {
             if (e instanceof SyntaxError) {
-                console.error(`JSON 解析失败: ${filePath}`, e);
+                console.error(e);
                 return `JSON 格式错误: ${filePath}`;
             }
-            console.error(`文件读取失败: ${filePath}`, e);
+            console.error(e);
             return `文件读取失败: ${filePath}`;
         };
         if (!Array.isArray(src)) {
@@ -408,7 +402,7 @@ export default async function convertInteract(): Promise<string> {
             .setTitle("选择JSON文件（可多选）")
             .pickFiles();
     } catch (e) {
-        console.error('文件对话框打开失败', e);
+        console.error(e);
         return '文件对话框打开失败';
     };
     if (!fileHandles || fileHandles.length === 0) {
@@ -422,10 +416,10 @@ export default async function convertInteract(): Promise<string> {
             src = await Bun.file(filePath).json();
         } catch (e) {
             if (e instanceof SyntaxError) {
-                console.error(`JSON 解析失败: ${filePath}`, e);
+                console.error(e);
                 return `JSON 格式错误: ${filePath}`;
             };
-            console.error(`文件读取失败: ${filePath}`, e);
+            console.error(e);
             return `文件读取失败: ${filePath}`;
         };
         if (!Array.isArray(src)) {
@@ -437,13 +431,9 @@ export default async function convertInteract(): Promise<string> {
     if (typeof result === 'string') {
         return result;
     };
-    
-    // 获取统计信息
     const count = result.prepare('SELECT COUNT(*) as count FROM posts').get() as { count: number };
     const stats = result.prepare('SELECT type, COUNT(*) as count FROM posts GROUP BY type').all() as { type: string; count: number }[];
     const timeRange = result.prepare('SELECT MIN(created_time) as min_time, MAX(created_time) as max_time FROM posts').get() as { min_time: number; max_time: number };
-    
-    // 弹出保存对话框
     let savePath;
     try {
         const saveHandle = await new AsyncFileDialog()
@@ -457,18 +447,17 @@ export default async function convertInteract(): Promise<string> {
         };
         savePath = saveHandle.path();
     } catch (e) {
-        console.error('保存对话框打开失败', e);
+        console.error(e);
         result.close();
         return '保存对话框打开失败';
     };
-    
-    // 保存数据库到文件
     try {
-        // 使用 sqlite 的 backup 功能保存到文件
+        const existingFile = Bun.file(savePath);
+        if (await existingFile.exists()) {
+            await Bun.write(savePath, '');
+        };
         const fileDb = new Database(savePath);
         fileDb.run(CREATE_TABLE_SQL);
-        
-        // 复制数据
         const insertStmt = fileDb.prepare(INSERT_SQL);
         const rows = result.prepare('SELECT * FROM posts ORDER BY created_time').all() as any[];
         for (const row of rows) {
@@ -481,23 +470,21 @@ export default async function convertInteract(): Promise<string> {
         };
         fileDb.close();
     } catch (e) {
-        console.error('数据库保存失败', e);
+        console.error(e);
         result.close();
         return `数据库保存失败: ${e}`;
     };
-    
     result.close();
-    
     let msg = `成功导入 ${count.count} 条记录`;
     for (const stat of stats) {
-        msg += `\n  - ${stat.type}: ${stat.count} 条`;
+        msg += `，${stat.type}: ${stat.count} 条`;
     };
     if (timeRange.min_time && timeRange.max_time) {
-        const minDate = new Date(timeRange.min_time * 1000).toLocaleString('zh-CN');
-        const maxDate = new Date(timeRange.max_time * 1000).toLocaleString('zh-CN');
-        msg += `\n  时间范围: ${minDate} ~ ${maxDate}`;
+        const minDate = new Date(timeRange.min_time * 1000).toLocaleDateString('zh-CN');
+        const maxDate = new Date(timeRange.max_time * 1000).toLocaleDateString('zh-CN');
+        msg += `，时间: ${minDate} ~ ${maxDate}`;
     };
-    msg += `\n已保存到: ${savePath}`;
+    msg += `，已保存到 ${savePath}`;
     return msg;
 };
 

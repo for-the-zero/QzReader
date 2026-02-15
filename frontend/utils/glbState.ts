@@ -10,6 +10,7 @@ const useGlobalStore = create<GlobalStore>((set) => ({
     state: {
         usable: false,
         serverUrl: '',
+        allowOnline: false,
     },
     setState: (updater) =>
         set((store) => ({

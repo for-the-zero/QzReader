@@ -1,7 +1,8 @@
 // react
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // shadcn
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarContent } from "./components/ui/sidebar";
+import { Toaster } from "@/components/ui/sonner";
 // icon
 import { House, Compass, Dice5, ChartBarStacked, Archive } from 'lucide-react';
 // pages
@@ -11,9 +12,16 @@ import Random from "./appComponents/Random";
 import Analysis from './appComponents/Analysis';
 // other
 import { AnimatePresence, motion } from "framer-motion";
+import { useGlbState } from "./utils/glbState";
 
 export default function App({}){
     const [activeTab, setActiveTab] = useState(0);
+    const [glbState] = useGlbState();
+    useEffect(()=>{
+        if(!glbState.usable){
+            setActiveTab(0);
+        };
+    },[glbState.usable])
 
     return (
         <SidebarProvider>
@@ -31,19 +39,19 @@ export default function App({}){
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
-                            <SidebarMenuButton isActive={activeTab === 1} onClick={()=>{setActiveTab(1);}}>
+                            <SidebarMenuButton isActive={activeTab === 1} onClick={()=>{setActiveTab(1);}} disabled={!glbState.usable}>
                                 <Compass className="h-4 w-4" />
                                 浏览
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
-                            <SidebarMenuButton isActive={activeTab === 2} onClick={()=>{setActiveTab(2);}}>
+                            <SidebarMenuButton isActive={activeTab === 2} onClick={()=>{setActiveTab(2);}} disabled={!glbState.usable}>
                                 <Dice5 className="h-4 w-4" />
                                 抽卡
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
-                            <SidebarMenuButton isActive={activeTab === 3} onClick={()=>{setActiveTab(3);}}>
+                            <SidebarMenuButton isActive={activeTab === 3} onClick={()=>{setActiveTab(3);}} disabled={!glbState.usable}>
                                 <ChartBarStacked className="h-4 w-4" />
                                 统计
                             </SidebarMenuButton>
@@ -52,6 +60,7 @@ export default function App({}){
                 </SidebarContent>
             </Sidebar>
             <main className="p-5 w-full">
+                <Toaster />
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={activeTab}

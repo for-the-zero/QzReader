@@ -9,5 +9,10 @@ declare module "*.module.css" {
 
 interface glbStateType {
     usable: boolean,
-    serverUrl: string
+    serverUrl: string,
+    allowOnline: boolean
+};
+interface serverConfigType {
+    dbPath: string | null,
+    picPath: string | null,
 };

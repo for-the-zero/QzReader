@@ -1,8 +1,9 @@
-import { file, type Serve } from "bun";
+import { type Serve } from "bun";
 import { AsyncFileDialog } from "@bindrs/rfd";
 import { Database } from "bun:sqlite";
 
 import convertInteract from "./convert";
+import { get, count, range } from "./get";
 
 var configs: serverConfigType = {
     dbPath: null,
@@ -63,6 +64,30 @@ const appRoutes = {
             return Response.json({msg: '成功', ...configs});
         },
     },
+    "/api/set/db": {
+        async POST(req){ 
+            const { path } = await req.json();
+            if(!path){
+                return Response.json({msg: '路径不能为空', ...configs});
+            };
+            try{
+                if(db){
+                    db.close();
+                };
+                db = new Database(path);
+                configs.dbPath = path;
+            } catch (e) { 
+                console.error(e);
+                if(configs.dbPath){
+                    db = new Database(configs.dbPath);
+                } else {
+                    db = null;
+                };
+                return Response.json({msg: '打开数据库失败', ...configs});
+            };
+            return Response.json({msg: '成功', ...configs});
+        },
+    },
     "/api/select/pic": {
         async GET(req){ 
             let fileHandles;
@@ -82,5 +107,42 @@ const appRoutes = {
             return Response.json({msg: '成功', ...configs});
         },
     },
+    "/api/get":{
+        async POST(req){ 
+            if(!db){
+                return Response.error();
+            };
+            let data: reqListType = await req.json();
+            return Response.json({
+                list: await get(data, db),
+                ...configs
+            })
+        },
+    },
+    "/api/get/count":{
+        async POST(req){ 
+            if(!db){
+                return Response.error();
+            };
+            let filter: filterRangeReqType = await req.json();
+            return Response.json({
+                count: await count(filter, db),
+                ...configs
+            })
+        },
+    },
+    "/api/get/count/range":{
+        async POST(req){ 
+            if(!db){
+                return Response.error();
+            };
+            let data: filterType = await req.json();
+            return Response.json({
+                callback: await range(data, db),
+                ...configs
+            })
+        },
+    },
+    //TODO:
 } as Serve.Routes<Request, any>;
 export default appRoutes;

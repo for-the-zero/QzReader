@@ -31,7 +31,7 @@ export default function Home({}){
 
     useEffect(()=>{
         if(!glbState.serverUrl){
-            setGlbState({serverUrl: 'http://' + window.location.host, usable: false, allowOnline: false});
+            setGlbState({...glbState, serverUrl: 'http://' + window.location.host, usable: false, allowOnline: false});
             checkServer();
         };
     }, []);
@@ -44,7 +44,7 @@ export default function Home({}){
             let req = await fetch(serverUrl + '/api/ping');
             if(req.status == 200){
                 let res: serverConfigType = await req.json();
-                setGlbState({serverUrl: serverUrl, usable: checkUsable(res), allowOnline: glbState.allowOnline});
+                setGlbState({...glbState, serverUrl: serverUrl, usable: checkUsable(res)});
                 toast.success('可用！已设置为当前连接服务器',{position: "top-center"});
             } else {
                 toast.error('失败',{position: "top-center"});
@@ -59,7 +59,7 @@ export default function Home({}){
             let req = await fetch(serverUrl + `/api/select/${type}`);
             if(req.status == 200){
                 let res = await req.json();
-                setGlbState({serverUrl: glbState.serverUrl, usable: checkUsable(res), allowOnline: glbState.allowOnline})
+                setGlbState({...glbState, usable: checkUsable(res)})
                 toast.info(res.msg,{position: "top-center"});
             };
         } catch (error) {
@@ -72,7 +72,7 @@ export default function Home({}){
             let req = await fetch(serverUrl + `/api/convert`);
             if(req.status == 200){
                 let res = await req.json();
-                setGlbState({serverUrl: glbState.serverUrl, usable: checkUsable(res), allowOnline: glbState.allowOnline})
+                setGlbState({...glbState, usable: checkUsable(res)})
                 toast.info(res.msg,{position: "top-center"});
             };
         } catch (error) {
@@ -127,10 +127,11 @@ export default function Home({}){
                 <CardFooter className='flex flex-row gap-3 justify-around'>
                     <Button className='flex-1' onClick={()=>{select('db')}}><Database />SQLite文件{filePath[0] ? `：${getFileName(filePath[0])}` : ''}</Button>
                     <div className='flex-1 flex flex-row items-center gap-2'>
-                        <Button className='flex-1' onClick={()=>{select('pic')}}><Images />图片文件夹{filePath[1] ? `：${getFileName(filePath[1])}` : '（可选）'}</Button>
+                        <Button className='flex-1' onClick={()=>{select('pic')}} variant='secondary'><Images />图片文件夹{filePath[1] ? `：${getFileName(filePath[1])}` : '（可选）'}</Button>
                         <Tooltip>
                             <TooltipTrigger asChild><div className='flex flex-row gap-2 items-center'>
-                                <Switch checked={glbState.allowOnline} onCheckedChange={(checked)=>{setGlbState({...glbState, allowOnline: checked})}} /><p>使用在线图片</p>
+                                <Switch checked={glbState.allowOnline} onCheckedChange={(checked)=>{setGlbState({...glbState, allowOnline: checked})}} />
+                                <p className='select-none' onClick={()=>{setGlbState({...glbState, allowOnline: !glbState.allowOnline})}}>使用在线图片</p>
                             </div></TooltipTrigger>
                             <TooltipContent>本地没有的图片会请求QQ空间服务器，可能会触发风控，也可能有风险</TooltipContent>
                         </Tooltip>

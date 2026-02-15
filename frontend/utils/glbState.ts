@@ -1,5 +1,15 @@
 // stores/globalStore.ts
 import { create } from 'zustand';
+
+const defaultFilter: filterType = {
+    type: 'both',
+    secret: false,
+    hasLbs: false,
+    withLink: false,
+    withAt: false,
+}
+
+
 interface GlobalStore {
     state: glbStateType;
     setState: (
@@ -11,6 +21,7 @@ const useGlobalStore = create<GlobalStore>((set) => ({
         usable: false,
         serverUrl: '',
         allowOnline: false,
+        filter: defaultFilter,
     },
     setState: (updater) =>
         set((store) => ({

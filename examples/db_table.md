@@ -59,14 +59,12 @@
         "type": 1,
         "url": "https://...",
         "text": "网页链接",
-        "custom_display": "<a href='...'>网页链接</a>"
     },
     {
         "nick": "昵称",
         "type": 0,
         "uin": "QQ号",
         "custom_url": "http://user.qzone.qq.com/...",
-        "custom_display": "<a href='...'>@昵称</a>"
     }
 ]
 ```

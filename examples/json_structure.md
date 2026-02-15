@@ -76,14 +76,12 @@
         "type": 1,
         "url": "https://...",
         "text": "网页链接",
-        "custom_display": "<a href='...' target='_blank'>网页链接</a>"
     },
     {
         "nick": "昵称",
         "type": 0,
         "uin": "1145141919810（QQ号）",
         "custom_url": "http://user.qzone.qq.com/1145141919810",
-        "custom_display": "<a href='https://user.qzone.qq.com/1145141919810' target='_blank'>@昵称</a>"
     },
 ```
 

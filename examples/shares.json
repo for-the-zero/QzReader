@@ -1,357 +1,553 @@
 [
     {
-        "id": 1739500001,
-        "uin": "1111111111",
-        "nickname": "示例用户One",
-        "type": 4,
-        "desc": "这是一条分享测试，转发语支持换行\n这是第二行",
+        "id": 1756092307,
+        "uin": "123456789",
+        "nickname": "小明",
+        "desc": "这篇文章写得很好，推荐给大家",
         "source": {
-            "title": "【测试文章】QQ空间分享功能详解",
-            "desc": "1.5万播放·888点赞·120弹幕",
-            "url": "https://user.qzone.qq.com/p/h5/pc/api/sns.qzone.qq.com/cgi-bin/qzshare/mqqapi://microapp/open?mini_appid=1109937557&fakeUrl=https://m.q.qq.com/a/s/test001",
-            "from": {
-                "url": "mqqapi://microapp/open?mini_appid=1109937557&fakeUrl=https://m.q.qq.com/a/s/test001",
-                "name": "QQ小程序"
-            },
-            "count": 1,
+            "title": "GitHub独立时代落幕",
+            "desc": "阅读量10万+",
+            "url": "https://github.com/features",
+            "from": { "url": "https://github.com", "name": "GitHub" },
             "images": [
-                {
-                    "url": "https://qq.ugcimg.cn/v1/test001.jpg",
-                    "custom_url": "http://qq.ugcimg.cn/v1/test001.jpg",
-                    "custom_mimeType": ".jpeg",
-                    "custom_filename": "SHARE001.jpeg",
-                    "custom_filepath": "images/SHARE001.jpeg"
-                }
+                { "url": "https://picsum.photos/seed/share01/800/450", "custom_url": "https://picsum.photos/seed/share01/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE001.jpeg" }
             ]
         },
-        "shareTime": 1739500000,
-        "likes": [
-            {
-                "fuin": 2222222222,
-                "nick": "点赞用户A",
-                "portrait": "http://qlogo1.store.qq.com/qzone/2222222222/2222222222/30",
-                "gender": "男",
-                "constellation": "白羊座",
-                "addr": "浙江",
-                "if_qq_friend": 1,
-                "if_special_care": 0,
-                "is_special_vip": false
-            }
-        ],
-        "likeTotal": 1,
-        "uniKey": "0011111111110001739500001",
+        "shareTime": 1756092300,
+        "likes": [],
+        "likeTotal": 0,
         "comments": [],
         "commentTotal": 0
     },
     {
-        "id": 1739400002,
-        "uin": "1111111111",
-        "nickname": "示例用户One",
-        "type": 4,
-        "desc": "知乎文章分享测试",
+        "id": 1755758156,
+        "uin": "123456789",
+        "nickname": "小明",
+        "desc": "求你了不会翻译别翻",
         "source": {
-            "title": "2025年前端开发趋势预测",
-            "desc": "3.2万赞同·1568评论",
-            "url": "https://zhuanlan.zhihu.com/p/123456789?share_code=test&utm_psn=abc123",
-            "from": {
-                "url": "https://zhuanlan.zhihu.com/p/123456789?share_code=test&utm_psn=abc123",
-                "name": "知乎"
-            },
-            "count": 1,
+            "title": "那些年我们看过的奇葩翻译",
+            "desc": "3.2万播放·1280点赞·56弹幕",
+            "url": "https://www.bilibili.com/v/popular/rank/all",
+            "from": { "url": "https://www.bilibili.com", "name": "哔哩哔哩" },
             "images": [
-                {
-                    "url": "https://qq.ugcimg.cn/v1/zhihu001.jpg",
-                    "custom_url": "http://qq.ugcimg.cn/v1/zhihu001.jpg",
-                    "custom_mimeType": ".jpeg",
-                    "custom_filename": "ZHIHU001.jpeg",
-                    "custom_filepath": "images/ZHIHU001.jpeg"
-                }
+                { "url": "https://picsum.photos/seed/share02/800/450", "custom_url": "https://picsum.photos/seed/share02/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE002.jpeg" }
             ]
         },
-        "shareTime": 1739400000,
-        "likes": [
-            {
-                "fuin": 3333333333,
-                "nick": "知乎好友",
-                "portrait": "http://qlogo1.store.qq.com/qzone/3333333333/3333333333/30",
-                "gender": "女",
-                "constellation": "天秤座",
-                "addr": "北京",
-                "if_qq_friend": 1,
-                "if_special_care": 1,
-                "is_special_vip": true
-            },
-            {
-                "fuin": 4444444444,
-                "nick": "路人点赞",
-                "portrait": "http://qlogo1.store.qq.com/qzone/4444444444/4444444444/30",
-                "gender": "",
-                "constellation": "",
-                "addr": "",
-                "if_qq_friend": 0,
-                "if_special_care": 0,
-                "is_special_vip": false
-            }
-        ],
-        "likeTotal": 2,
-        "uniKey": "0011111111110001739400002",
-        "comments": [
-            {
-                "IsPasswordLuckyMoneyCmtRight": "",
-                "abledel": 1,
-                "content": "分享的评论测试",
-                "createTime": "昨天",
-                "createTime2": "2025-02-13 15:30:00",
-                "create_time": 1739434200,
-                "name": "评论者A",
-                "private": 0,
-                "reply_num": 0,
-                "source_name": "",
-                "source_url": "",
-                "stored_extend_info": [],
-                "t2_source": 1,
-                "t2_subtype": 2,
-                "t2_termtype": 2,
-                "tid": 3001,
-                "uin": 5555555555
-            }
-        ],
+        "shareTime": 1755758100,
+        "likes": [ { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" } ],
+        "likeTotal": 3,
+        "comments": [ { "content": "笑死我了", "create_time": 1755758200, "name": "小红", "reply_num": 0, "tid": 1, "uin": 987654321, "list_3": [] } ],
         "commentTotal": 1
     },
     {
-        "id": 1739300003,
-        "uin": "1111111111",
-        "nickname": "示例用户One",
-        "type": 4,
-        "desc": "",
+        "id": 1755712930,
+        "uin": "123456789",
+        "nickname": "小明",
+        "desc": "问号",
         "source": {
-            "title": "微信公众号文章测试",
-            "desc": "来自公众号：测试公众号",
-            "url": "https://mp.weixin.qq.com/s?__biz=MzA5NjA0MzE3MA==&mid=2650475185&idx=1&sn=test123&chksm=test#rd",
-            "from": {
-                "url": "https://mp.weixin.qq.com/s?__biz=MzA5NjA0MzE3MA==&mid=2650475185&idx=1&sn=test123&chksm=test#rd",
-                "name": "微信公众号"
-            },
-            "count": 1,
+            "title": "程序员的一天",
+            "desc": "1.5万播放·520点赞·23弹幕",
+            "url": "https://www.bilibili.com/v/popular/rank/tech",
+            "from": { "url": "https://www.bilibili.com", "name": "哔哩哔哩" },
             "images": [
-                {
-                    "url": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/test/300?wx_fmt=jpeg",
-                    "custom_url": "http://mmbiz.qpic.cn/sz_mmbiz_jpg/test/300?wx_fmt=jpeg",
-                    "custom_mimeType": ".jpeg",
-                    "custom_filename": "WECHAT001.jpeg",
-                    "custom_filepath": "images/WECHAT001.jpeg"
-                }
+                { "url": "https://picsum.photos/seed/share03/800/450", "custom_url": "https://picsum.photos/seed/share03/800/450", "custom_mimeType": ".png", "custom_filename": "SHARE003.png" }
             ]
         },
-        "shareTime": 1739300000,
-        "likes": [],
-        "likeTotal": 0,
-        "uniKey": "0011111111110001739300003",
+        "shareTime": 1755712920,
+        "likes": [ { "fuin": 987654321, "nick": "小红" } ],
+        "likeTotal": 1,
         "comments": [],
         "commentTotal": 0
     },
     {
-        "id": 1739200004,
-        "uin": "1111111111",
-        "nickname": "示例用户One",
-        "type": 4,
-        "desc": "B站视频分享，测试长标题和描述\n支持多行转发语\n这是第三行",
+        "id": 1755628800,
+        "uin": "987654321",
+        "nickname": "小红",
+        "desc": "",
         "source": {
-            "title": "【超长标题测试】这是一个非常非常非常非常非常非常非常非常非常非常非常非常非常非常长的标题用于测试标题截断和显示效果",
-            "desc": "100万播放·10万点赞·5000弹幕",
-            "url": "https://user.qzone.qq.com/p/h5/pc/api/sns.qzone.qq.com/cgi-bin/qzshare/mqqapi://microapp/open?mini_appid=1109937557&fakeUrl=https://m.q.qq.com/a/s/bilibili001",
-            "from": {
-                "url": "mqqapi://microapp/open?mini_appid=1109937557&fakeUrl=https://m.q.qq.com/a/s/bilibili001",
-                "name": "QQ小程序"
-            },
-            "count": 1,
+            "title": "AI绘画入门教程",
+            "desc": "",
+            "url": "https://www.zhihu.com/topic/20069268",
+            "from": { "url": "https://www.zhihu.com", "name": "知乎" },
             "images": [
-                {
-                    "url": "https://qq.ugcimg.cn/v1/bilibili_cover001.jpg",
-                    "custom_url": "http://qq.ugcimg.cn/v1/bilibili_cover001.jpg",
-                    "custom_mimeType": ".jpeg",
-                    "custom_filename": "BILIBILI001.jpeg",
-                    "custom_filepath": "images/BILIBILI001.jpeg"
-                }
+                { "url": "https://picsum.photos/seed/share04/800/450", "custom_url": "https://picsum.photos/seed/share04/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE004.jpeg" }
             ]
         },
-        "shareTime": 1739200000,
-        "likes": [
-            {
-                "fuin": 6666666666,
-                "nick": "B站用户",
-                "portrait": "http://qlogo1.store.qq.com/qzone/6666666666/6666666666/30",
-                "gender": "男",
-                "constellation": "射手座",
-                "addr": "上海",
-                "if_qq_friend": 1,
-                "if_special_care": 0,
-                "is_special_vip": false
-            },
-            {
-                "fuin": 7777777777,
-                "nick": "VIP大佬",
-                "portrait": "http://qlogo1.store.qq.com/qzone/7777777777/7777777777/30",
-                "gender": "女",
-                "constellation": "狮子座",
-                "addr": "广东",
-                "if_qq_friend": 1,
-                "if_special_care": 1,
-                "is_special_vip": true
-            },
-            {
-                "fuin": 8888888888,
-                "nick": "普通用户C",
-                "portrait": "http://qlogo1.store.qq.com/qzone/8888888888/8888888888/30",
-                "gender": "男",
-                "constellation": "水瓶座",
-                "addr": "江苏",
-                "if_qq_friend": 0,
-                "if_special_care": 0,
-                "is_special_vip": false
-            }
-        ],
-        "likeTotal": 3,
-        "uniKey": "0011111111110001739200004",
-        "comments": [
-            {
-                "IsPasswordLuckyMoneyCmtRight": "",
-                "abledel": 1,
-                "content": "好视频！",
-                "createTime": "2天前",
-                "createTime2": "2025-02-12 20:00:00",
-                "create_time": 1739371200,
-                "name": "评论者B",
-                "private": 0,
-                "reply_num": 1,
-                "source_name": "Android",
-                "source_url": "",
-                "stored_extend_info": [],
-                "t2_source": 1,
-                "t2_subtype": 1,
-                "t2_termtype": 1,
-                "tid": 3002,
-                "uin": 9999999999
-            },
-            {
-                "IsPasswordLuckyMoneyCmtRight": "",
-                "abledel": 1,
-                "content": "已三连👍",
-                "createTime": "2天前",
-                "createTime2": "2025-02-12 21:00:00",
-                "create_time": 1739374800,
-                "name": "评论者C",
-                "private": 0,
-                "reply_num": 0,
-                "source_name": "",
-                "source_url": "",
-                "stored_extend_info": [],
-                "t2_source": 1,
-                "t2_subtype": 2,
-                "t2_termtype": 2,
-                "tid": 3003,
-                "uin": 1010101010
-            }
-        ],
+        "shareTime": 1755628000,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" }, { "fuin": 777888999, "nick": "小王" }, { "fuin": 123123123, "nick": "阿强" } ],
+        "likeTotal": 5,
+        "comments": [ { "content": "这个教程不错", "create_time": 1755629000, "name": "小明", "reply_num": 0, "tid": 1, "uin": 123456789, "list_3": [] }, { "content": "我也想学", "create_time": 1755630000, "name": "阿华", "reply_num": 0, "tid": 2, "uin": 111222333, "list_3": [] } ],
         "commentTotal": 2
     },
     {
-        "id": 1739100005,
-        "uin": "1111111111",
-        "nickname": "示例用户One",
-        "type": 4,
-        "desc": "QQ频道分享测试",
+        "id": 1755545600,
+        "uin": "111222333",
+        "nickname": "阿华",
+        "desc": "这家餐厅真的好吃！",
         "source": {
-            "title": "这是一个来自QQ频道的内容分享",
-            "desc": "胡桃世界第一可爱",
-            "url": "https://pd.qq.com/qqweb/qunpro/share?_wv=3&_wwv=128&appChannel=share&attaContentID=test123&businessType=2&contentID=test&inviteCode=test&needOpenWeb=0",
-            "from": {
-                "url": "https://pd.qq.com/qqweb/qunpro/share?_wv=3&_wwv=128&appChannel=share&attaContentID=test123&businessType=2&contentID=test&inviteCode=test&needOpenWeb=0",
-                "name": "pd.qq.com"
-            },
-            "count": 1,
+            "title": "深圳必吃榜TOP10",
+            "desc": "大众点评精选",
+            "url": "https://www.dianping.com/shenzhen/ch10",
+            "from": { "url": "https://www.dianping.com", "name": "大众点评" },
             "images": [
-                {
-                    "url": "https://channelr.photo.store.qq.com/psc?/channel/test/cover.jpg",
-                    "custom_url": "http://channelr.photo.store.qq.com/psc?/channel/test/cover.jpg",
-                    "custom_mimeType": ".jpeg",
-                    "custom_filename": "CHANNEL001.jpeg",
-                    "custom_filepath": "images/CHANNEL001.jpeg"
-                }
+                { "url": "https://picsum.photos/seed/share05a/800/450", "custom_url": "https://picsum.photos/seed/share05a/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE05A.jpeg" },
+                { "url": "https://picsum.photos/seed/share05b/800/450", "custom_url": "https://picsum.photos/seed/share05b/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE05B.jpeg" }
             ]
         },
-        "shareTime": 1739100000,
-        "likes": [],
-        "likeTotal": 0,
-        "uniKey": "0011111111110001739100005",
+        "shareTime": 1755545000,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 444555666, "nick": "小李" }, { "fuin": 777888999, "nick": "小王" }, { "fuin": 123123123, "nick": "阿强" }, { "fuin": 456456456, "nick": "小张" }, { "fuin": 789789789, "nick": "阿杰" }, { "fuin": 321321321, "nick": "小陈" } ],
+        "likeTotal": 8,
+        "comments": [ { "content": "在哪？", "create_time": 1755546000, "name": "小明", "reply_num": 1, "tid": 1, "uin": 123456789, "list_3": [ { "content": "南山区那边", "create_time": 1755546500, "name": "阿华", "reply_num": 0, "tid": 2, "uin": 111222333, "list_3": [] } ] }, { "content": "看起来不错", "create_time": 1755547000, "name": "小红", "reply_num": 0, "tid": 3, "uin": 987654321, "list_3": [] } ],
+        "commentTotal": 2
+    },
+    {
+        "id": 1755462000,
+        "uin": "444555666",
+        "nickname": "小李",
+        "desc": "这个up主太有才了",
+        "source": {
+            "title": "【手工】我用纸做了一个高达",
+            "desc": "28万播放·1.2万点赞·890弹幕",
+            "url": "https://www.bilibili.com/v/popular/rank/handmake",
+            "from": { "url": "https://www.bilibili.com", "name": "哔哩哔哩" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share06/800/450", "custom_url": "https://picsum.photos/seed/share06/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE006.jpeg" }
+            ]
+        },
+        "shareTime": 1755461500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 777888999, "nick": "小王" } ],
+        "likeTotal": 4,
+        "comments": [ { "content": "太强了", "create_time": 1755462500, "name": "小明", "reply_num": 0, "tid": 1, "uin": 123456789, "list_3": [] } ],
+        "commentTotal": 1
+    },
+    {
+        "id": 1755378000,
+        "uin": "777888999",
+        "nickname": "小王",
+        "desc": "周末去哪玩",
+        "source": {
+            "title": "广州周末好去处",
+            "desc": "收藏量5000+",
+            "url": "https://www.xiaohongshu.com/explore",
+            "from": { "url": "https://www.xiaohongshu.com", "name": "小红书" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share07a/800/450", "custom_url": "https://picsum.photos/seed/share07a/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE07A.jpeg" },
+                { "url": "https://picsum.photos/seed/share07b/800/450", "custom_url": "https://picsum.photos/seed/share07b/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE07B.jpeg" },
+                { "url": "https://picsum.photos/seed/share07c/800/450", "custom_url": "https://picsum.photos/seed/share07c/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE07C.jpeg" }
+            ]
+        },
+        "shareTime": 1755377500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" } ],
+        "likeTotal": 2,
         "comments": [],
         "commentTotal": 0
     },
     {
-        "id": 1739000006,
-        "uin": "1111111111",
-        "nickname": "示例用户One",
-        "type": 4,
-        "desc": "空内容分享测试（无转发语）",
+        "id": 1755294000,
+        "uin": "123123123",
+        "nickname": "阿强",
+        "desc": "学到了",
         "source": {
-            "title": "测试标题",
+            "title": "JavaScript高级技巧",
+            "desc": "掘金热门文章",
+            "url": "https://juejin.cn/trending",
+            "from": { "url": "https://juejin.cn", "name": "掘金" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share08/800/450", "custom_url": "https://picsum.photos/seed/share08/800/450", "custom_mimeType": ".png", "custom_filename": "SHARE008.png" }
+            ]
+        },
+        "shareTime": 1755293500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" }, { "fuin": 777888999, "nick": "小王" }, { "fuin": 456456456, "nick": "小张" } ],
+        "likeTotal": 6,
+        "comments": [ { "content": "收藏了", "create_time": 1755294500, "name": "小明", "reply_num": 0, "tid": 1, "uin": 123456789, "list_3": [] }, { "content": "好文", "create_time": 1755295000, "name": "阿华", "reply_num": 0, "tid": 2, "uin": 111222333, "list_3": [] } ],
+        "commentTotal": 2
+    },
+    {
+        "id": 1755210000,
+        "uin": "456456456",
+        "nickname": "小张",
+        "desc": "这部电影太好看了！强推",
+        "source": {
+            "title": "《奥本海默》豆瓣评分9.0",
+            "desc": "豆瓣电影",
+            "url": "https://movie.douban.com/chart",
+            "from": { "url": "https://movie.douban.com", "name": "豆瓣电影" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share09/800/450", "custom_url": "https://picsum.photos/seed/share09/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE009.jpeg" }
+            ]
+        },
+        "shareTime": 1755209500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" }, { "fuin": 777888999, "nick": "小王" }, { "fuin": 123123123, "nick": "阿强" }, { "fuin": 789789789, "nick": "阿杰" }, { "fuin": 321321321, "nick": "小陈" }, { "fuin": 654654654, "nick": "阿明" }, { "fuin": 147147147, "nick": "小刘" } ],
+        "likeTotal": 10,
+        "comments": [ { "content": "我也想看", "create_time": 1755210500, "name": "小明", "reply_num": 1, "tid": 1, "uin": 123456789, "list_3": [ { "content": "真的很好看", "create_time": 1755211000, "name": "小张", "reply_num": 0, "tid": 2, "uin": 456456456, "list_3": [] } ] }, { "content": "时长大约多久？", "create_time": 1755211500, "name": "小红", "reply_num": 1, "tid": 3, "uin": 987654321, "list_3": [ { "content": "3小时", "create_time": 1755212000, "name": "小张", "reply_num": 0, "tid": 4, "uin": 456456456, "list_3": [] } ] } ],
+        "commentTotal": 2
+    },
+    {
+        "id": 1755126000,
+        "uin": "789789789",
+        "nickname": "阿杰",
+        "desc": "",
+        "source": {
+            "title": "2024年最新装修风格大全",
             "desc": "",
-            "url": "https://example.com/test",
-            "from": {
-                "url": "https://example.com/test",
-                "name": "测试来源"
-            },
-            "count": 1,
-            "images": []
+            "url": "https://www.shejiben.com/",
+            "from": { "url": "https://www.shejiben.com", "name": "设计本" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share10a/800/450", "custom_url": "https://picsum.photos/seed/share10a/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE10A.jpeg" },
+                { "url": "https://picsum.photos/seed/share10b/800/450", "custom_url": "https://picsum.photos/seed/share10b/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE10B.jpeg" },
+                { "url": "https://picsum.photos/seed/share10c/800/450", "custom_url": "https://picsum.photos/seed/share10c/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE10C.jpeg" },
+                { "url": "https://picsum.photos/seed/share10d/800/450", "custom_url": "https://picsum.photos/seed/share10d/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE10D.jpeg" }
+            ]
         },
-        "shareTime": 1739000000,
-        "likes": [],
-        "likeTotal": 0,
-        "uniKey": "0011111111110001739000006",
+        "shareTime": 1755125500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" } ],
+        "likeTotal": 3,
         "comments": [],
         "commentTotal": 0
     },
     {
-        "id": 1738900007,
-        "uin": "2222222222",
-        "nickname": "示例用户Two",
-        "type": 4,
-        "desc": "不同用户的分享",
+        "id": 1755042000,
+        "uin": "321321321",
+        "nickname": "小陈",
+        "desc": "这个游戏太上头了",
         "source": {
-            "title": "跨用户分享测试",
-            "desc": "测试不同uin的分享数据",
-            "url": "https://example.com/cross-user-test",
-            "from": {
-                "url": "https://example.com/cross-user-test",
-                "name": "自定义来源"
-            },
-            "count": 1,
+            "title": "原神4.0版本更新内容",
+            "desc": "",
+            "url": "https://genshin.hoyoverse.com/zh-cn/",
+            "from": { "url": "https://genshin.hoyoverse.com", "name": "原神官网" },
             "images": [
-                {
-                    "url": "https://example.com/cross_user.jpg",
-                    "custom_url": "http://example.com/cross_user.jpg",
-                    "custom_mimeType": ".png",
-                    "custom_filename": "CROSS_USER.png",
-                    "custom_filepath": "images/CROSS_USER.png"
-                }
+                { "url": "https://picsum.photos/seed/share11/800/450", "custom_url": "https://picsum.photos/seed/share11/800/450", "custom_mimeType": ".png", "custom_filename": "SHARE11.png" }
             ]
         },
-        "shareTime": 1738900000,
-        "likes": [
-            {
-                "fuin": 1111111111,
-                "nick": "示例用户One",
-                "portrait": "http://qlogo1.store.qq.com/qzone/1111111111/1111111111/30",
-                "gender": "男",
-                "constellation": "摩羯座",
-                "addr": "浙江",
-                "if_qq_friend": 1,
-                "if_special_care": 0,
-                "is_special_vip": false
-            }
-        ],
+        "shareTime": 1755041500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" }, { "fuin": 777888999, "nick": "小王" } ],
+        "likeTotal": 5,
+        "comments": [ { "content": "你也在玩？", "create_time": 1755042500, "name": "小明", "reply_num": 1, "tid": 1, "uin": 123456789, "list_3": [ { "content": "是啊，有点肝", "create_time": 1755043000, "name": "小陈", "reply_num": 0, "tid": 2, "uin": 321321321, "list_3": [] } ] } ],
+        "commentTotal": 1
+    },
+    {
+        "id": 1754958000,
+        "uin": "654654654",
+        "nickname": "阿明",
+        "desc": "这首歌唱得太好听了",
+        "source": {
+            "title": "周杰伦新歌《最伟大的作品》",
+            "desc": "播放量破亿",
+            "url": "https://y.qq.com/",
+            "from": { "url": "https://y.qq.com", "name": "QQ音乐" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share12/800/450", "custom_url": "https://picsum.photos/seed/share12/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE12.jpeg" }
+            ]
+        },
+        "shareTime": 1754957500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" }, { "fuin": 777888999, "nick": "小王" }, { "fuin": 123123123, "nick": "阿强" }, { "fuin": 456456456, "nick": "小张" } ],
+        "likeTotal": 7,
+        "comments": [ { "content": "杰伦yyds", "create_time": 1754958500, "name": "小明", "reply_num": 0, "tid": 1, "uin": 123456789, "list_3": [] }, { "content": "这首歌确实好听", "create_time": 1754959000, "name": "小红", "reply_num": 0, "tid": 2, "uin": 987654321, "list_3": [] } ],
+        "commentTotal": 2
+    },
+    {
+        "id": 1754874000,
+        "uin": "147147147",
+        "nickname": "小刘",
+        "desc": "学英语必备",
+        "source": {
+            "title": "如何用3个月攻克雅思",
+            "desc": "知乎高赞回答",
+            "url": "https://www.zhihu.com/topic/19554230",
+            "from": { "url": "https://www.zhihu.com", "name": "知乎" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share13/800/450", "custom_url": "https://picsum.photos/seed/share13/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE13.jpeg" }
+            ]
+        },
+        "shareTime": 1754873500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" } ],
+        "likeTotal": 2,
+        "comments": [],
+        "commentTotal": 0
+    },
+    {
+        "id": 1754790000,
+        "uin": "258258258",
+        "nickname": "阿伟",
+        "desc": "国内最美的10个露营地",
+        "source": {
+            "title": "国内最美的10个露营地推荐",
+            "desc": "收藏量2万+",
+            "url": "https://www.mafengwo.cn/",
+            "from": { "url": "https://www.mafengwo.cn", "name": "马蜂窝" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share14a/800/450", "custom_url": "https://picsum.photos/seed/share14a/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE14A.jpeg" },
+                { "url": "https://picsum.photos/seed/share14b/800/450", "custom_url": "https://picsum.photos/seed/share14b/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE14B.jpeg" },
+                { "url": "https://picsum.photos/seed/share14c/800/450", "custom_url": "https://picsum.photos/seed/share14c/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE14C.jpeg" }
+            ]
+        },
+        "shareTime": 1754789500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" }, { "fuin": 777888999, "nick": "小王" }, { "fuin": 123123123, "nick": "阿强" }, { "fuin": 456456456, "nick": "小张" }, { "fuin": 789789789, "nick": "阿杰" } ],
+        "likeTotal": 8,
+        "comments": [ { "content": "收藏了", "create_time": 1754790500, "name": "小明", "reply_num": 0, "tid": 1, "uin": 123456789, "list_3": [] }, { "content": "想去！", "create_time": 1754791000, "name": "小红", "reply_num": 0, "tid": 2, "uin": 987654321, "list_3": [] } ],
+        "commentTotal": 2
+    },
+    {
+        "id": 1754706000,
+        "uin": "369369369",
+        "nickname": "小周",
+        "desc": "好书推荐",
+        "source": {
+            "title": "《置身事内》读懂中国经济",
+            "desc": "豆瓣评分9.1",
+            "url": "https://book.douban.com/",
+            "from": { "url": "https://book.douban.com", "name": "豆瓣读书" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share15/800/450", "custom_url": "https://picsum.photos/seed/share15/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE15.jpeg" }
+            ]
+        },
+        "shareTime": 1754705500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" } ],
+        "likeTotal": 4,
+        "comments": [ { "content": "这本书我看过，写得很好", "create_time": 1754706500, "name": "小明", "reply_num": 0, "tid": 1, "uin": 123456789, "list_3": [] } ],
+        "commentTotal": 1
+    },
+    {
+        "id": 1754622000,
+        "uin": "741741741",
+        "nickname": "小吴",
+        "desc": "今天的新闻太离谱了",
+        "source": {
+            "title": "某科技公司宣布裁员50%",
+            "desc": "",
+            "url": "https://www.36kr.com/",
+            "from": { "url": "https://www.36kr.com", "name": "36氪" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share16/800/450", "custom_url": "https://picsum.photos/seed/share16/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE16.jpeg" }
+            ]
+        },
+        "shareTime": 1754621500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" } ],
+        "likeTotal": 3,
+        "comments": [ { "content": "太难了", "create_time": 1754622500, "name": "小明", "reply_num": 0, "tid": 1, "uin": 123456789, "list_3": [] }, { "content": "经济不景气", "create_time": 1754623000, "name": "阿华", "reply_num": 0, "tid": 2, "uin": 111222333, "list_3": [] } ],
+        "commentTotal": 2
+    },
+    {
+        "id": 1754538000,
+        "uin": "852852852",
+        "nickname": "阿郑",
+        "desc": "这个健身动作太有效了",
+        "source": {
+            "title": "每天10分钟，一个月练出马甲线",
+            "desc": "1.5万收藏",
+            "url": "https://www.bilibili.com/v/popular/rank/life",
+            "from": { "url": "https://www.bilibili.com", "name": "哔哩哔哩" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share17/800/450", "custom_url": "https://picsum.photos/seed/share17/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE17.jpeg" }
+            ]
+        },
+        "shareTime": 1754537500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" }, { "fuin": 777888999, "nick": "小王" }, { "fuin": 123123123, "nick": "阿强" } ],
+        "likeTotal": 6,
+        "comments": [ { "content": "真的有效吗", "create_time": 1754538500, "name": "小明", "reply_num": 1, "tid": 1, "uin": 123456789, "list_3": [ { "content": "坚持下来确实有用", "create_time": 1754539000, "name": "阿郑", "reply_num": 0, "tid": 2, "uin": 852852852, "list_3": [] } ] } ],
+        "commentTotal": 1
+    },
+    {
+        "id": 1754454000,
+        "uin": "963963963",
+        "nickname": "小赵",
+        "desc": "",
+        "source": {
+            "title": "iPhone 15 Pro深度评测",
+            "desc": "数码博主测评",
+            "url": "https://www.bilibili.com/v/popular/rank/digital",
+            "from": { "url": "https://www.bilibili.com", "name": "哔哩哔哩" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share18/800/450", "custom_url": "https://picsum.photos/seed/share18/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE18.jpeg" }
+            ]
+        },
+        "shareTime": 1754453500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" } ],
+        "likeTotal": 4,
+        "comments": [],
+        "commentTotal": 0
+    },
+    {
+        "id": 1754370000,
+        "uin": "159159159",
+        "nickname": "阿钱",
+        "desc": "股市又跌了...",
+        "source": {
+            "title": "A股今日大跌5%",
+            "desc": "",
+            "url": "https://finance.sina.com.cn/",
+            "from": { "url": "https://finance.sina.com.cn", "name": "新浪财经" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share19/800/450", "custom_url": "https://picsum.photos/seed/share19/800/450", "custom_mimeType": ".png", "custom_filename": "SHARE19.png" }
+            ]
+        },
+        "shareTime": 1754369500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" }, { "fuin": 777888999, "nick": "小王" } ],
+        "likeTotal": 5,
+        "comments": [ { "content": "绿油油一片", "create_time": 1754370500, "name": "小明", "reply_num": 0, "tid": 1, "uin": 123456789, "list_3": [] }, { "content": "心态崩了", "create_time": 1754371000, "name": "阿华", "reply_num": 0, "tid": 2, "uin": 111222333, "list_3": [] }, { "content": "定投吧，长期看涨", "create_time": 1754371500, "name": "小李", "reply_num": 0, "tid": 3, "uin": 444555666, "list_3": [] } ],
+        "commentTotal": 3
+    },
+    {
+        "id": 1754286000,
+        "uin": "357357357",
+        "nickname": "小孙",
+        "desc": "周末去看展",
+        "source": {
+            "title": "莫奈画展·上海站",
+            "desc": "早鸟票已售罄",
+            "url": "https://www.damai.cn/",
+            "from": { "url": "https://www.damai.cn", "name": "大麦网" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share20a/800/450", "custom_url": "https://picsum.photos/seed/share20a/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE20A.jpeg" },
+                { "url": "https://picsum.photos/seed/share20b/800/450", "custom_url": "https://picsum.photos/seed/share20b/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE20B.jpeg" }
+            ]
+        },
+        "shareTime": 1754285500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" } ],
+        "likeTotal": 2,
+        "comments": [ { "content": "我也想去！", "create_time": 1754286500, "name": "小红", "reply_num": 1, "tid": 1, "uin": 987654321, "list_3": [ { "content": "一起啊", "create_time": 1754287000, "name": "小孙", "reply_num": 0, "tid": 2, "uin": 357357357, "list_3": [] } ] } ],
+        "commentTotal": 1
+    },
+    {
+        "id": 1754202000,
+        "uin": "753753753",
+        "nickname": "阿李",
+        "desc": "有趣的小程序",
+        "source": {
+            "title": "AI帮你写周报",
+            "desc": "",
+            "url": "https://developers.weixin.qq.com/miniprogram/dev/framework/",
+            "from": { "url": "https://developers.weixin.qq.com", "name": "微信小程序" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share21/800/450", "custom_url": "https://picsum.photos/seed/share21/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE21.jpeg" }
+            ]
+        },
+        "shareTime": 1754201500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" }, { "fuin": 777888999, "nick": "小王" }, { "fuin": 123123123, "nick": "阿强" }, { "fuin": 456456456, "nick": "小张" }, { "fuin": 789789789, "nick": "阿杰" }, { "fuin": 321321321, "nick": "小陈" }, { "fuin": 654654654, "nick": "阿明" }, { "fuin": 147147147, "nick": "小刘" }, { "fuin": 258258258, "nick": "阿伟" } ],
+        "likeTotal": 12,
+        "comments": [ { "content": "这个有用！", "create_time": 1754202500, "name": "小明", "reply_num": 0, "tid": 1, "uin": 123456789, "list_3": [] }, { "content": "打工人必备", "create_time": 1754203000, "name": "阿华", "reply_num": 0, "tid": 2, "uin": 111222333, "list_3": [] }, { "content": "哈哈这个太需要了", "create_time": 1754203500, "name": "小李", "reply_num": 0, "tid": 3, "uin": 444555666, "list_3": [] } ],
+        "commentTotal": 3
+    },
+    {
+        "id": 1754118000,
+        "uin": "951951951",
+        "nickname": "小周",
+        "desc": "这个纪录片太震撼了",
+        "source": {
+            "title": "《蓝色星球》BBC纪录片",
+            "desc": "豆瓣评分9.8",
+            "url": "https://www.bilibili.com/bangumi/",
+            "from": { "url": "https://www.bilibili.com", "name": "哔哩哔哩" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share22/800/450", "custom_url": "https://picsum.photos/seed/share22/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE22.jpeg" }
+            ]
+        },
+        "shareTime": 1754117500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" }, { "fuin": 777888999, "nick": "小王" }, { "fuin": 123123123, "nick": "阿强" } ],
+        "likeTotal": 6,
+        "comments": [ { "content": "我也看过，画质绝了", "create_time": 1754118500, "name": "小明", "reply_num": 0, "tid": 1, "uin": 123456789, "list_3": [] } ],
+        "commentTotal": 1
+    },
+    {
+        "id": 1754034000,
+        "uin": "135135135",
+        "nickname": "阿吴",
+        "desc": "",
+        "source": {
+            "title": "深圳周末好去处·大鹏半岛",
+            "desc": "",
+            "url": "https://www.xiaohongshu.com/explore",
+            "from": { "url": "https://www.xiaohongshu.com", "name": "小红书" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share23a/800/450", "custom_url": "https://picsum.photos/seed/share23a/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE23A.jpeg" },
+                { "url": "https://picsum.photos/seed/share23b/800/450", "custom_url": "https://picsum.photos/seed/share23b/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE23B.jpeg" },
+                { "url": "https://picsum.photos/seed/share23c/800/450", "custom_url": "https://picsum.photos/seed/share23c/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE23C.jpeg" }
+            ]
+        },
+        "shareTime": 1754033500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" } ],
         "likeTotal": 1,
-        "uniKey": "0022222222220001738900007",
+        "comments": [],
+        "commentTotal": 0
+    },
+    {
+        "id": 1753950000,
+        "uin": "246246246",
+        "nickname": "小郑",
+        "desc": "这个开源项目太强了",
+        "source": {
+            "title": "GitHub年度最受欢迎项目Top10",
+            "desc": "star数均破万",
+            "url": "https://github.com/trending",
+            "from": { "url": "https://github.com", "name": "GitHub" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share24/800/450", "custom_url": "https://picsum.photos/seed/share24/800/450", "custom_mimeType": ".png", "custom_filename": "SHARE24.png" }
+            ]
+        },
+        "shareTime": 1753949500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" }, { "fuin": 777888999, "nick": "小王" }, { "fuin": 123123123, "nick": "阿强" }, { "fuin": 456456456, "nick": "小张" }, { "fuin": 789789789, "nick": "阿杰" }, { "fuin": 321321321, "nick": "小陈" } ],
+        "likeTotal": 9,
+        "comments": [ { "content": "star了", "create_time": 1753950500, "name": "小明", "reply_num": 0, "tid": 1, "uin": 123456789, "list_3": [] }, { "content": "看看都有啥", "create_time": 1753951000, "name": "阿华", "reply_num": 0, "tid": 2, "uin": 111222333, "list_3": [] } ],
+        "commentTotal": 2
+    },
+    {
+        "id": 1753866000,
+        "uin": "468468468",
+        "nickname": "阿王",
+        "desc": "这个笑话太好笑了",
+        "source": {
+            "title": "当代程序员迷惑行为大赏",
+            "desc": "5.6万播放·2300点赞",
+            "url": "https://www.bilibili.com/v/popular/rank/funny",
+            "from": { "url": "https://www.bilibili.com", "name": "哔哩哔哩" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share25/800/450", "custom_url": "https://picsum.photos/seed/share25/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE25.jpeg" }
+            ]
+        },
+        "shareTime": 1753865500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" }, { "fuin": 777888999, "nick": "小王" }, { "fuin": 123123123, "nick": "阿强" }, { "fuin": 456456456, "nick": "小张" } ],
+        "likeTotal": 7,
+        "comments": [ { "content": "笑死", "create_time": 1753866500, "name": "小明", "reply_num": 0, "tid": 1, "uin": 123456789, "list_3": [] }, { "content": "太真实了", "create_time": 1753867000, "name": "阿华", "reply_num": 0, "tid": 2, "uin": 111222333, "list_3": [] }, { "content": "膝盖中了一箭", "create_time": 1753867500, "name": "小李", "reply_num": 0, "tid": 3, "uin": 444555666, "list_3": [] } ],
+        "commentTotal": 3
+    },
+    {
+        "id": 1753782000,
+        "uin": "579579579",
+        "nickname": "小冯",
+        "desc": "养猫日记",
+        "source": {
+            "title": "橘猫的日常",
+            "desc": "小红书萌宠",
+            "url": "https://www.xiaohongshu.com/explore",
+            "from": { "url": "https://www.xiaohongshu.com", "name": "小红书" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share26a/800/450", "custom_url": "https://picsum.photos/seed/share26a/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE26A.jpeg" },
+                { "url": "https://picsum.photos/seed/share26b/800/450", "custom_url": "https://picsum.photos/seed/share26b/800/450", "custom_mimeType": ".jpeg", "custom_filename": "SHARE26B.jpeg" }
+            ]
+        },
+        "shareTime": 1753781500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" }, { "fuin": 444555666, "nick": "小李" }, { "fuin": 777888999, "nick": "小王" }, { "fuin": 123123123, "nick": "阿强" }, { "fuin": 456456456, "nick": "小张" }, { "fuin": 789789789, "nick": "阿杰" }, { "fuin": 321321321, "nick": "小陈" }, { "fuin": 654654654, "nick": "阿明" } ],
+        "likeTotal": 10,
+        "comments": [ { "content": "好可爱！", "create_time": 1753782500, "name": "小红", "reply_num": 0, "tid": 1, "uin": 987654321, "list_3": [] }, { "content": "橘猫都是胖子", "create_time": 1753783000, "name": "小明", "reply_num": 0, "tid": 2, "uin": 123456789, "list_3": [] } ],
+        "commentTotal": 2
+    },
+    {
+        "id": 1753698000,
+        "uin": "680680680",
+        "nickname": "阿陈",
+        "desc": "新年愿望清单",
+        "source": {
+            "title": "2025年目标规划模板",
+            "desc": "",
+            "url": "https://www.notion.so/",
+            "from": { "url": "https://www.notion.so", "name": "Notion" },
+            "images": [
+                { "url": "https://picsum.photos/seed/share27/800/450", "custom_url": "https://picsum.photos/seed/share27/800/450", "custom_mimeType": ".png", "custom_filename": "SHARE27.png" }
+            ]
+        },
+        "shareTime": 1753697500,
+        "likes": [ { "fuin": 123456789, "nick": "小明" }, { "fuin": 987654321, "nick": "小红" }, { "fuin": 111222333, "nick": "阿华" } ],
+        "likeTotal": 3,
         "comments": [],
         "commentTotal": 0
     }

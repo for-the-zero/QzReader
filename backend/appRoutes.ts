@@ -1,6 +1,6 @@
 import type { Serve } from "bun";
 
-import convert from "./convert";
+import convertInteract from "./convert";
 
 var configs = {
     dbPath: null,
@@ -19,7 +19,7 @@ const appRoutes = {
     "/api/convert": {
         async GET(req){
             return Response.json({
-                msg: await convert(),
+                msg: await convertInteract(),
                 ...configs
             });
         },

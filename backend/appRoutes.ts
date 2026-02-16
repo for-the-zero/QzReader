@@ -113,8 +113,105 @@ const appRoutes = {
                 return Response.error();
             };
             let data: reqListType = await req.json();
+            const list = await get(data, db);
+            const { where, params } = (() => {
+                const conditions: string[] = [];
+                const params: (string | number | boolean)[] = [];
+                const f = data.filter;
+                if (f.type !== 'both') {
+                    conditions.push('type = ?');
+                    params.push(f.type);
+                }
+                if (f.picTotal != null) {
+                    if (typeof f.picTotal === 'number') {
+                        conditions.push('image_total = ?');
+                        params.push(f.picTotal);
+                    } else if (f.picTotal[1] === 'inf') {
+                        conditions.push('image_total >= ?');
+                        params.push(f.picTotal[0]);
+                    } else {
+                        conditions.push('image_total BETWEEN ? AND ?');
+                        params.push(f.picTotal[0], f.picTotal[1]);
+                    }
+                }
+                if (f.mediaTotal != null) {
+                    if (typeof f.mediaTotal === 'number') {
+                        conditions.push('video_total = ?');
+                        params.push(f.mediaTotal);
+                    } else if (f.mediaTotal[1] === 'inf') {
+                        conditions.push('video_total >= ?');
+                        params.push(f.mediaTotal[0]);
+                    } else {
+                        conditions.push('video_total BETWEEN ? AND ?');
+                        params.push(f.mediaTotal[0], f.mediaTotal[1]);
+                    }
+                }
+                if (f.secret) conditions.push('secret = 1');
+                if (f.hasLbs) conditions.push('lbs IS NOT NULL');
+                if (f.withLink) conditions.push("(content LIKE '%http%' OR content LIKE '%链接%')");
+                if (f.withAt) conditions.push("content LIKE '%@%'");
+                if (f.date) {
+                    if (Array.isArray(f.date)) {
+                        conditions.push('created_time BETWEEN ? AND ?');
+                        params.push(Math.floor(f.date[0] / 1000), Math.floor(f.date[1] / 1000));
+                    } else {
+                        const startTs = Math.floor(new Date(f.date.year, f.date.month - 1, f.date.day).getTime() / 1000);
+                        const endTs = Math.floor(new Date(f.date.year, f.date.month - 1, f.date.day, 23, 59, 59).getTime() / 1000);
+                        conditions.push('created_time BETWEEN ? AND ?');
+                        params.push(startTs, endTs);
+                    }
+                }
+                if (f.likes != null) {
+                    if (typeof f.likes === 'number') {
+                        conditions.push('like_total = ?');
+                        params.push(f.likes);
+                    } else if (f.likes[1] === 'inf') {
+                        conditions.push('like_total >= ?');
+                        params.push(f.likes[0]);
+                    } else {
+                        conditions.push('like_total BETWEEN ? AND ?');
+                        params.push(f.likes[0], f.likes[1]);
+                    }
+                }
+                if (f.comments != null) {
+                    if (typeof f.comments === 'number') {
+                        conditions.push('comment_total = ?');
+                        params.push(f.comments);
+                    } else if (f.comments[1] === 'inf') {
+                        conditions.push('comment_total >= ?');
+                        params.push(f.comments[0]);
+                    } else {
+                        conditions.push('comment_total BETWEEN ? AND ?');
+                        params.push(f.comments[0], f.comments[1]);
+                    }
+                }
+                if (f.fwds != null) {
+                    if (typeof f.fwds === 'number') {
+                        conditions.push('fwd_num = ?');
+                        params.push(f.fwds);
+                    } else if (f.fwds[1] === 'inf') {
+                        conditions.push('fwd_num >= ?');
+                        params.push(f.fwds[0]);
+                    } else {
+                        conditions.push('fwd_num BETWEEN ? AND ?');
+                        params.push(f.fwds[0], f.fwds[1]);
+                    }
+                }
+                if (f.content) {
+                    conditions.push('content LIKE ?');
+                    params.push(`%${f.content}%`);
+                }
+                if (f.shareSource) {
+                    conditions.push("share_source LIKE ?");
+                    params.push(`%"${f.shareSource}"%`);
+                }
+                return { where: conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '', params };
+            })();
+            const countSql = `SELECT COUNT(*) as total FROM posts ${where}`;
+            const countRow = db.query(countSql).get(...params) as any;
             return Response.json({
-                list: await get(data, db),
+                list: list,
+                total: countRow?.total || 0,
                 ...configs
             })
         },

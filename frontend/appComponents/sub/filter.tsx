@@ -9,13 +9,13 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Slider } from "@/components/ui/slider";
-import { Calendar, CalendarDayButton } from "@/components/ui/calendar";
+import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/frontend/lib/utils";
 import { type DayButton, getDefaultClassNames } from "react-day-picker";
 
 import { useGlbState } from "@/frontend/utils/glbState";
+import { useState, useEffect, useMemo, useCallback, useRef, memo } from "react";
 import { toast } from "sonner";
-import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 
 interface numFilterState {
     enabled: boolean,
@@ -34,7 +34,7 @@ function NumFilter({ label, value, onChange, range }: { label: string, value: nu
         if (range && (value.max !== range[1] || value.rangeMax > range[1])) {
             onChange({ ...value, max: range[1], rangeMax: Math.min(value.rangeMax, range[1]) });
         }
-    }, [range]);
+    }, [range, value, onChange]);
     return (
         <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
@@ -63,7 +63,7 @@ function NumFilter({ label, value, onChange, range }: { label: string, value: nu
                                     value={[value.rangeMin, value.rangeMax]}
                                     min={0}
                                     max={maxVal}
-                                    onValueChange={(v) => onChange({ ...value, rangeMin: v[0], rangeMax: v[1] })}
+                                    onValueChange={(v) => onChange({ ...value, rangeMin: v[0]!, rangeMax: v[1]! })}
                                     className="flex-1"
                                 />
                                 <span className="text-sm w-8">{value.rangeMax}</span>
@@ -74,7 +74,7 @@ function NumFilter({ label, value, onChange, range }: { label: string, value: nu
                                     value={[value.exact]}
                                     min={0}
                                     max={maxVal}
-                                    onValueChange={(v) => onChange({ ...value, exact: v[0] })}
+                                    onValueChange={(v) => onChange({ ...value, exact: v[0]! })}
                                     className="flex-1"
                                 />
                                 <span className="text-sm w-8">{value.exact}</span>
@@ -157,6 +157,7 @@ function DateFilter({ value, onChange, serverUrl, filterBase }: { value: DateFil
             }
         } catch (e) {
             console.error(e);
+            toast.error('获取日期数据失败', { position: 'top-center' });
         }
     }, [serverUrl, filterBase]);
     useEffect(() => {
@@ -204,17 +205,36 @@ function DateFilter({ value, onChange, serverUrl, filterBase }: { value: DateFil
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="end">
-                        <Calendar
-                            mode={value.mode === 'single' ? 'single' : 'range'}
-                            selected={value.mode === 'single' ? value.single : { from: value.rangeStart || undefined, to: value.rangeEnd || undefined }}
-                            onSelect={value.mode === 'single' ? handleSingleSelect as any : handleRangeSelect as any}
-                            month={displayMonth}
-                            onMonthChange={setDisplayMonth}
-                            components={{
-                                DayButton: (props) => <DateDayButton {...props} dayCounts={dayCounts} />,
-                            }}
-                            captionLayout="dropdown"
-                        />
+                        {(() => {
+                            if (value.mode === 'single') {
+                                return (
+                                    <Calendar
+                                        mode="single"
+                                        selected={value.single ?? undefined}
+                                        onSelect={handleSingleSelect}
+                                        month={displayMonth}
+                                        onMonthChange={setDisplayMonth}
+                                        components={{
+                                            DayButton: (props) => <DateDayButton {...props} dayCounts={dayCounts} />,
+                                        }}
+                                        captionLayout="dropdown"
+                                    />
+                                );
+                            }
+                            return (
+                                <Calendar
+                                    mode="range"
+                                    selected={{ from: value.rangeStart ?? undefined, to: value.rangeEnd ?? undefined }}
+                                    onSelect={handleRangeSelect}
+                                    month={displayMonth}
+                                    onMonthChange={setDisplayMonth}
+                                    components={{
+                                        DayButton: (props) => <DateDayButton {...props} dayCounts={dayCounts} />,
+                                    }}
+                                    captionLayout="dropdown"
+                                />
+                            );
+                        })()}
                     </PopoverContent>
                 </Popover>
             </div>
@@ -222,9 +242,10 @@ function DateFilter({ value, onChange, serverUrl, filterBase }: { value: DateFil
     );
 };
 
-export function TopBar() {
+export const TopBar = memo(()=>{
     const [glbState, setGlbState] = useGlbState();
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [localFilter, setLocalFilter] = useState<filterType>(glbState.filter);
     const [picTotal, setPicTotal] = useState<numFilterState>(defaultNumState);
     const [mediaTotal, setMediaTotal] = useState<numFilterState>(defaultNumState);
     const [likes, setLikes] = useState<numFilterState>(defaultNumState);
@@ -236,18 +257,17 @@ export function TopBar() {
     const [shareSources, setShareSources] = useState<string[]>([]);
     const [ranges, setRanges] = useState<{ pic?: [number, number], media?: [number, number], likes?: [number, number], comments?: [number, number], fwds?: [number, number] }>({});
     const [filteredCount, setFilteredCount] = useState<number | null>(null);
-    const filter = glbState.filter;
     const serverUrl = glbState.serverUrl;
-    const isShuoshuo = filter.type === 'shuoshuo' || filter.type === 'both';
-    const isShare = filter.type === 'share' || filter.type === 'both';
+    const isShuoshuo = localFilter.type === 'shuoshuo' || localFilter.type === 'both';
+    const isShare = localFilter.type === 'share' || localFilter.type === 'both';
     const filterBase: filterRangeReqType['other'] = useMemo(() => ({
-        type: filter.type,
-        secret: filter.secret,
-        hasLbs: filter.hasLbs,
-        withLink: filter.withLink,
-        withAt: filter.withAt,
+        type: localFilter.type,
+        secret: localFilter.secret,
+        hasLbs: localFilter.hasLbs,
+        withLink: localFilter.withLink,
+        withAt: localFilter.withAt,
         content: content || '',
-    }), [filter.type, filter.secret, filter.hasLbs, filter.withLink, filter.withAt, content]);
+    }), [localFilter.type, localFilter.secret, localFilter.hasLbs, localFilter.withLink, localFilter.withAt, content]);
     const fetchRanges = useCallback(async () => {
         if (!serverUrl) return;
         try {
@@ -257,7 +277,7 @@ export function TopBar() {
                 const req = await fetch(serverUrl + '/api/get/count', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ other: { type: filter.type, secret: false, hasLbs: false, withLink: false, withAt: false, content: '' }, getRange: r }),
+                    body: JSON.stringify({ other: { type: localFilter.type, secret: false, hasLbs: false, withLink: false, withAt: false, content: '' }, getRange: r }),
                 });
                 if (req.ok) {
                     const res = await req.json();
@@ -267,10 +287,11 @@ export function TopBar() {
             setRanges(newRanges);
         } catch (e) {
             console.error(e);
+            toast.error('获取范围数据失败', { position: 'top-center' });
         }
-    }, [serverUrl, filter.type]);
+    }, [serverUrl, localFilter.type]);
     const fetchShareSources = useCallback(async () => {
-        if (!serverUrl || filter.type === 'shuoshuo') return;
+        if (!serverUrl || localFilter.type === 'shuoshuo') return;
         try {
             const req = await fetch(serverUrl + '/api/get/count', {
                 method: 'POST',
@@ -283,16 +304,17 @@ export function TopBar() {
             }
         } catch (e) {
             console.error(e);
+            toast.error('获取分享来源失败', { position: 'top-center' });
         }
-    }, [serverUrl, filter.type]);
+    }, [serverUrl, localFilter.type]);
     const fetchFilteredCount = useCallback(async () => {
         if (!serverUrl) return;
         const reqBody: filterType = {
-            type: filter.type,
-            secret: filter.secret,
-            hasLbs: filter.hasLbs,
-            withLink: filter.withLink,
-            withAt: filter.withAt,
+            type: localFilter.type,
+            secret: localFilter.secret,
+            hasLbs: localFilter.hasLbs,
+            withLink: localFilter.withLink,
+            withAt: localFilter.withAt,
             content: content || null,
         };
         if (dateFilter.mode === 'single' && dateFilter.single) {
@@ -305,7 +327,7 @@ export function TopBar() {
         console.log('fetchFilteredCount reqBody:', JSON.stringify(reqBody, null, 2));
         if (isShuoshuo) {
             if (picTotal.enabled) reqBody.picTotal = picTotal.isRange ? [picTotal.rangeMin, picTotal.rangeMax] : picTotal.exact;
-            if (mediaTotal.enabled) reqBody.mediaTotal = mediaTotal.isRange ? [mediaTotal.rangeMin, mediaTotal.rangeMax] : mediaTotal.exact;
+            if (mediaTotal.enabled) reqBody.mediaTotal = [1, 'inf'];
         }
         if (isShare && shareSource) {
             reqBody.shareSource = shareSource;
@@ -325,85 +347,77 @@ export function TopBar() {
             }
         } catch (e) {
             console.error(e);
+            toast.error('获取筛选结果失败', { position: 'top-center' });
         }
-    }, [serverUrl, filter, content, dateFilter, picTotal, mediaTotal, likes, comments, fwds, shareSource, isShuoshuo, isShare]);
+    }, [serverUrl, localFilter, content, dateFilter, picTotal, mediaTotal, likes, comments, fwds, shareSource, isShuoshuo, isShare]);
     useEffect(() => {
         if (dialogOpen) {
+            setLocalFilter(glbState.filter);
+            if (glbState.filter.picTotal != null) {
+                if (typeof glbState.filter.picTotal === 'number') {
+                    setPicTotal({ ...defaultNumState, enabled: true, exact: glbState.filter.picTotal });
+                } else {
+                    setPicTotal({ ...defaultNumState, enabled: true, isRange: true, rangeMin: glbState.filter.picTotal[0], rangeMax: typeof glbState.filter.picTotal[1] === 'number' ? glbState.filter.picTotal[1] : 100 });
+                }
+            } else {
+                setPicTotal(defaultNumState);
+            }
+            setMediaTotal(glbState.filter.mediaTotal != null ? { ...defaultNumState, enabled: true } : defaultNumState);
+            if (glbState.filter.likes != null) {
+                if (typeof glbState.filter.likes === 'number') {
+                    setLikes({ ...defaultNumState, enabled: true, exact: glbState.filter.likes });
+                } else {
+                    setLikes({ ...defaultNumState, enabled: true, isRange: true, rangeMin: glbState.filter.likes[0], rangeMax: typeof glbState.filter.likes[1] === 'number' ? glbState.filter.likes[1] : 100 });
+                }
+            } else {
+                setLikes(defaultNumState);
+            }
+            if (glbState.filter.comments != null) {
+                if (typeof glbState.filter.comments === 'number') {
+                    setComments({ ...defaultNumState, enabled: true, exact: glbState.filter.comments });
+                } else {
+                    setComments({ ...defaultNumState, enabled: true, isRange: true, rangeMin: glbState.filter.comments[0], rangeMax: typeof glbState.filter.comments[1] === 'number' ? glbState.filter.comments[1] : 100 });
+                }
+            } else {
+                setComments(defaultNumState);
+            }
+            if (glbState.filter.fwds != null) {
+                if (typeof glbState.filter.fwds === 'number') {
+                    setFwds({ ...defaultNumState, enabled: true, exact: glbState.filter.fwds });
+                } else {
+                    setFwds({ ...defaultNumState, enabled: true, isRange: true, rangeMin: glbState.filter.fwds[0], rangeMax: typeof glbState.filter.fwds[1] === 'number' ? glbState.filter.fwds[1] : 100 });
+                }
+            } else {
+                setFwds(defaultNumState);
+            }
+            if (glbState.filter.date) {
+                const d = glbState.filter.date;
+                if (Array.isArray(d)) {
+                    setDateFilter({ ...defaultDateValue, mode: 'range', rangeStart: new Date(d[0]), rangeEnd: new Date(d[1]) });
+                } else {
+                    setDateFilter({ ...defaultDateValue, mode: 'single', single: new Date(d.year, d.month - 1, d.day) });
+                }
+            } else {
+                setDateFilter(defaultDateValue);
+            }
+            setContent(glbState.filter.content || '');
+            setShareSource(glbState.filter.shareSource || '');
             fetchRanges();
             fetchShareSources();
         }
-    }, [dialogOpen, fetchRanges, fetchShareSources]);
+    }, [dialogOpen, glbState.filter, fetchRanges, fetchShareSources]);
     useEffect(() => {
         if (dialogOpen) {
             fetchFilteredCount();
         }
     }, [dialogOpen, fetchFilteredCount]);
-    useEffect(() => {
-        if (glbState.filter.picTotal != null) {
-            if (typeof glbState.filter.picTotal === 'number') {
-                setPicTotal({ ...defaultNumState, enabled: true, exact: glbState.filter.picTotal });
-            } else {
-                setPicTotal({ ...defaultNumState, enabled: true, isRange: true, rangeMin: glbState.filter.picTotal[0], rangeMax: typeof glbState.filter.picTotal[1] === 'number' ? glbState.filter.picTotal[1] : 100 });
-            }
-        } else {
-            setPicTotal(defaultNumState);
-        }
-        if (glbState.filter.mediaTotal != null) {
-            if (typeof glbState.filter.mediaTotal === 'number') {
-                setMediaTotal({ ...defaultNumState, enabled: true, exact: glbState.filter.mediaTotal });
-            } else {
-                setMediaTotal({ ...defaultNumState, enabled: true, isRange: true, rangeMin: glbState.filter.mediaTotal[0], rangeMax: typeof glbState.filter.mediaTotal[1] === 'number' ? glbState.filter.mediaTotal[1] : 100 });
-            }
-        } else {
-            setMediaTotal(defaultNumState);
-        }
-        if (glbState.filter.likes != null) {
-            if (typeof glbState.filter.likes === 'number') {
-                setLikes({ ...defaultNumState, enabled: true, exact: glbState.filter.likes });
-            } else {
-                setLikes({ ...defaultNumState, enabled: true, isRange: true, rangeMin: glbState.filter.likes[0], rangeMax: typeof glbState.filter.likes[1] === 'number' ? glbState.filter.likes[1] : 100 });
-            }
-        } else {
-            setLikes(defaultNumState);
-        }
-        if (glbState.filter.comments != null) {
-            if (typeof glbState.filter.comments === 'number') {
-                setComments({ ...defaultNumState, enabled: true, exact: glbState.filter.comments });
-            } else {
-                setComments({ ...defaultNumState, enabled: true, isRange: true, rangeMin: glbState.filter.comments[0], rangeMax: typeof glbState.filter.comments[1] === 'number' ? glbState.filter.comments[1] : 100 });
-            }
-        } else {
-            setComments(defaultNumState);
-        }
-        if (glbState.filter.fwds != null) {
-            if (typeof glbState.filter.fwds === 'number') {
-                setFwds({ ...defaultNumState, enabled: true, exact: glbState.filter.fwds });
-            } else {
-                setFwds({ ...defaultNumState, enabled: true, isRange: true, rangeMin: glbState.filter.fwds[0], rangeMax: typeof glbState.filter.fwds[1] === 'number' ? glbState.filter.fwds[1] : 100 });
-            }
-        } else {
-            setFwds(defaultNumState);
-        }
-        if (glbState.filter.date) {
-            const d = glbState.filter.date;
-            if (Array.isArray(d)) {
-                setDateFilter({ ...defaultDateValue, mode: 'range', rangeStart: new Date(d[0]), rangeEnd: new Date(d[1]) });
-            } else {
-                setDateFilter({ ...defaultDateValue, mode: 'single', single: new Date(d.year, d.month - 1, d.day) });
-            }
-        } else {
-            setDateFilter(defaultDateValue);
-        }
-        setContent(glbState.filter.content || '');
-        setShareSource(glbState.filter.shareSource || '');
-    }, [glbState.filter]);
     const handleApply = () => {
         const newFilter: filterType = {
-            type: filter.type,
-            secret: filter.secret,
-            hasLbs: filter.hasLbs,
-            withLink: filter.withLink,
-            withAt: filter.withAt,
+            type: localFilter.type,
+            secret: localFilter.secret,
+            hasLbs: localFilter.hasLbs,
+            withLink: localFilter.withLink,
+            withAt: localFilter.withAt,
             content: content || null,
         };
         if (dateFilter.mode === 'single' && dateFilter.single) {
@@ -415,7 +429,7 @@ export function TopBar() {
         }
         if (isShuoshuo) {
             if (picTotal.enabled) newFilter.picTotal = picTotal.isRange ? [picTotal.rangeMin, picTotal.rangeMax] : picTotal.exact;
-            if (mediaTotal.enabled) newFilter.mediaTotal = mediaTotal.isRange ? [mediaTotal.rangeMin, mediaTotal.rangeMax] : mediaTotal.exact;
+            if (mediaTotal.enabled) newFilter.mediaTotal = [1, 'inf'];
         }
         if (isShare && shareSource) {
             newFilter.shareSource = shareSource;
@@ -435,15 +449,12 @@ export function TopBar() {
         setDateFilter(defaultDateValue);
         setContent('');
         setShareSource('');
-        setGlbState({
-            ...glbState,
-            filter: {
-                type: 'both',
-                secret: false,
-                hasLbs: false,
-                withLink: false,
-                withAt: false,
-            },
+        setLocalFilter({
+            type: 'both',
+            secret: false,
+            hasLbs: false,
+            withLink: false,
+            withAt: false,
         });
     };
     return (
@@ -453,9 +464,8 @@ export function TopBar() {
                 <Input
                     className="w-full"
                     placeholder="搜索"
-                    value={content}
+                    value={glbState.filter.content || ''}
                     onChange={(e) => {
-                        setContent(e.target.value);
                         setGlbState({ ...glbState, filter: { ...glbState.filter, content: e.target.value || null } });
                     }}
                 />
@@ -480,11 +490,8 @@ export function TopBar() {
                         <div className="flex items-center justify-between">
                             <Label>类型</Label>
                             <Select
-                                value={filter.type}
-                                onValueChange={(v) => setGlbState({
-                                    ...glbState,
-                                    filter: { ...glbState.filter, type: v as 'shuoshuo' | 'share' | 'both' },
-                                })}
+                                value={localFilter.type}
+                                onValueChange={(v) => setLocalFilter({ ...localFilter, type: v as 'shuoshuo' | 'share' | 'both' })}
                             >
                                 <SelectTrigger className="w-28">
                                     <SelectValue />
@@ -499,15 +506,15 @@ export function TopBar() {
                         <div className="flex items-center justify-between">
                             <Label>有链接</Label>
                             <Switch
-                                checked={filter.withLink}
-                                onCheckedChange={(v) => setGlbState({ ...glbState, filter: { ...glbState.filter, withLink: v } })}
+                                checked={localFilter.withLink}
+                                onCheckedChange={(v) => setLocalFilter({ ...localFilter, withLink: v })}
                             />
                         </div>
                         <div className="flex items-center justify-between">
                             <Label>有@</Label>
                             <Switch
-                                checked={filter.withAt}
-                                onCheckedChange={(v) => setGlbState({ ...glbState, filter: { ...glbState.filter, withAt: v } })}
+                                checked={localFilter.withAt}
+                                onCheckedChange={(v) => setLocalFilter({ ...localFilter, withAt: v })}
                             />
                         </div>
                         <NumFilter label="点赞数" value={likes} onChange={setLikes} range={ranges.likes} />
@@ -518,19 +525,25 @@ export function TopBar() {
                                 <Separator />
                                 <div className="text-sm font-medium text-muted-foreground">说说专属</div>
                                 <NumFilter label="图片数量" value={picTotal} onChange={setPicTotal} range={ranges.pic} />
-                                <NumFilter label="媒体数量" value={mediaTotal} onChange={setMediaTotal} range={ranges.media} />
+                                <div className="flex items-center justify-between">
+                                    <Label>有视频</Label>
+                                    <Switch
+                                        checked={mediaTotal.enabled}
+                                        onCheckedChange={(v) => setMediaTotal({ ...mediaTotal, enabled: v })}
+                                    />
+                                </div>
                                 <div className="flex items-center justify-between">
                                     <Label>仅私密</Label>
                                     <Switch
-                                        checked={filter.secret}
-                                        onCheckedChange={(v) => setGlbState({ ...glbState, filter: { ...glbState.filter, secret: v } })}
+                                        checked={localFilter.secret}
+                                        onCheckedChange={(v) => setLocalFilter({ ...localFilter, secret: v })}
                                     />
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <Label>有位置</Label>
                                     <Switch
-                                        checked={filter.hasLbs}
-                                        onCheckedChange={(v) => setGlbState({ ...glbState, filter: { ...glbState.filter, hasLbs: v } })}
+                                        checked={localFilter.hasLbs}
+                                        onCheckedChange={(v) => setLocalFilter({ ...localFilter, hasLbs: v })}
                                     />
                                 </div>
                             </>
@@ -566,4 +579,4 @@ export function TopBar() {
             </Dialog>
         </div>
     );
-};
+});

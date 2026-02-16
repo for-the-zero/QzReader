@@ -72,13 +72,13 @@ export default function Browse({}) {
     return (
         <div className='flex flex-col justify-center gap-3'>
             <TopBar />
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 w-[80%] m-auto">
                 {loading ? (
                     <div className="text-center text-muted-foreground py-8">加载中...</div>
                 ) : posts.length === 0 ? (
                     <div className="text-center text-muted-foreground py-8">暂无数据</div>
                 ) : (
-                    posts.map((post) => <Post key={post.uni_key} post={post} />)
+                    posts.map((post) => <Post post={post} />)
                 )}
             </div>
             {total > 0 && (

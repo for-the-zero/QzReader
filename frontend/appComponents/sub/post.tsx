@@ -3,12 +3,15 @@ import { Button } from "@/frontend/components/ui/button";
 import { AvatarGroupCount } from "@/frontend/components/ui/avatar";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { VideoPlayer, VideoPlayerContent, VideoPlayerControlBar, VideoPlayerMuteButton, VideoPlayerPlayButton, VideoPlayerTimeDisplay, VideoPlayerTimeRange, VideoPlayerVolumeRange } from "@/frontend/components/kibo-ui/video-player";
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
-import { User, ExternalLink, LockKeyhole, Images } from "lucide-react";
+import { User, ExternalLink, LockKeyhole, Images, Heart, Forward, MapPin, MessageSquare } from "lucide-react";
 import { motion } from "framer-motion";
 import { useGlbState } from "@/frontend/utils/glbState";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { memo } from "react";
 
 function textFormatter(text: string) {
@@ -72,8 +75,30 @@ function textFormatter(text: string) {
     return result;
 };
 
+const Comments = ({ items }: { items: postComment[] }) => {
+    return <div className="overflow-y-auto flex flex-col gap-2 w-full">
+        {items.map((item) => (
+            <div className="flex flex-col">
+                <div>
+                    <Tooltip>
+                        <TooltipTrigger className="text-muted-foreground">{item.name}</TooltipTrigger>
+                        <TooltipContent>
+                            QQ号：{item.uin}<br />
+                            发送时间：{new Intl.DateTimeFormat('zh-CN', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(item.create_time * 1000)}
+                        </TooltipContent>
+                    </Tooltip>
+                    ：<span>{textFormatter(item.content)}</span>
+                </div>
+                {item.replies.length > 0 ? <div className="border-l-16 border-l-gray-900 pl-2">
+                    <Comments items={item.replies} />
+                </div> : null}
+            </div>
+        ))}
+    </div>;
+};
+
 const Shuoshuo = memo(({ post }: { post: shuoshuoType }) => {
-    const [glbState, setGlbState] = useGlbState();
+    const [glbState] = useGlbState();
     return <Card className="gap-0">
         <CardHeader>
             <CardTitle><div className="flex flex-row items-center gap-2">
@@ -146,8 +171,55 @@ const Shuoshuo = memo(({ post }: { post: shuoshuoType }) => {
                 </CardContent></Card> 
                 : null
             }
-            {/* TODO:点赞转发位置 */}
-            {/* TODO:评论 */}
+            <div className="flex flex-row justify-between items-center">
+                <p className="text-sm font-light text-muted-foreground items-center">
+                    {post.like_total >= 1
+                        ? <HoverCard openDelay={0} closeDelay={0}>
+                            <HoverCardTrigger>
+                                <Heart className="inline-block size-4 translate-y-[-2.25px]" /> {post.like_total}
+                            </HoverCardTrigger>
+                            <HoverCardContent>
+                                {post.likes.map((item, index) => [
+                                    <Tooltip> 
+                                        <TooltipTrigger>
+                                            <span className="text-sm">{item.nick}</span>
+                                        </TooltipTrigger>
+                                        <TooltipContent>{item.fuin}</TooltipContent>
+                                    </Tooltip>,
+                                <br />])}
+                            </HoverCardContent>
+                        </HoverCard>
+                    : null}
+                    {(post.like_total >= 1 && post.fwd_num >= 1) || (post.like_total >= 1 && post.lbs.name) ? ' · ' : null}
+                    {post.fwd_num >= 1
+                        ? [<Forward className="inline-block size-4 translate-y-[-2.25px]" />, ' ', post.fwd_num]
+                    : null}
+                    {post.fwd_num >= 1 && post.lbs.name ? ' · ' : null}
+                    {post.lbs.name
+                        ? <Tooltip>
+                            <TooltipTrigger>
+                                <MapPin className="inline-block size-4 translate-y-[-2.25px]" /> {post.lbs.name}
+                            </TooltipTrigger>
+                            <TooltipContent>经度 {post.lbs.pos_x}<br />纬度 {post.lbs.pos_y}</TooltipContent>
+                        </Tooltip>
+                    : null}
+                </p>
+                <Drawer direction={useIsMobile() ? 'bottom' : 'right'}>
+                    <DrawerTrigger>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <Button variant='ghost' size='icon-xs' disabled={post.comment_total == 0}><MessageSquare /></Button>
+                            </TooltipTrigger>
+                            <TooltipContent>{post.comment_total >= 1 ? `评论 (${post.comment_total})` : '无评论'}</TooltipContent>
+                        </Tooltip>
+                    </DrawerTrigger>
+                    <DrawerContent className="p-4">
+                        <DrawerHeader className="p-1 mb-3"><DrawerTitle className="text-2xl">评论</DrawerTitle></DrawerHeader>
+                        <Comments items={post.comments} />
+                    </DrawerContent>
+                </Drawer>
+                
+            </div>
         </CardContent>
     </Card>;
 });

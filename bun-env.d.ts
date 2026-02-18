@@ -58,8 +58,8 @@ interface reqListType {
     index?: number,
 };
 
-type postImage = { height: number, width: number, pic_id: string, small_url: string, url: string, custom_url?: string, mime_type: string, filename?: string };
-type postVideo = { cover_height: number, cover_width: number, video_id: string, video_time: string, cover_filename?: string, filename?: string };
+type postImage = { height: number, width: number, pic_id: string, small_url: string, url: string, custom_url: string, mime_type: string, filename: string };
+type postVideo = { cover_height: number, cover_width: number, video_id: string, video_time: string, cover_filename: string, filename: string };
 type postLike = { fuin: number, nick: string };
 type postComment = { content: string, create_time: number, name: string, reply_num: number, tid: number, uin: number, replies: postComment[] };
 type postShareSource = { title: string, desc: string, url: string, from: { url: string, name: string } };

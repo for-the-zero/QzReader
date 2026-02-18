@@ -1,6 +1,7 @@
 import { type Serve } from "bun";
 import { AsyncFileDialog } from "@bindrs/rfd";
 import { Database } from "bun:sqlite";
+import path from "path";
 
 import convertInteract from "./convert";
 import { get, count, range } from "./get";
@@ -240,6 +241,43 @@ const appRoutes = {
             })
         },
     },
-    //TODO:
+    "/api/img": {
+        async GET(req) {
+            let { searchParams } = new URL(req.url);
+            let src = searchParams.get('src') as string;
+            let online = searchParams.get('online');
+            if(configs.picPath){
+                let localPath = path.join(configs.picPath, src);
+                if (await Bun.file(localPath).exists()) {
+                    return new Response(Bun.file(localPath));
+                };
+            };
+            if(online){
+                try {
+                    const res = await fetch(online, {
+                        headers: {
+                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+                            'Referer': 'https://qzone.qq.com/',
+                            'Accept': 'image/*,video/*,*/*;q=0.8',
+                        },
+                    });
+                    return new Response(res.body, {
+                        status: res.status,
+                        headers: {
+                            'Content-Type': res.headers.get('Content-Type') || 'application/octet-stream',
+                            'Cache-Control': 'public, max-age=31536000',
+                            'Access-Control-Allow-Origin': '*',
+                        },
+                    });
+                } catch (e) {
+                    return new Response('Proxy Error', { status: 500 });
+                };
+            };
+            let blank = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64');
+            return new Response(blank, {
+                headers: { 'Content-Type': 'image/gif' }
+            });
+        }
+    }
 } as Serve.Routes<Request, any>;
 export default appRoutes;

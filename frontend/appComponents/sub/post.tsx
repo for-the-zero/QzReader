@@ -2,8 +2,13 @@ import { Card, CardHeader, CardTitle, CardContent, CardAction } from "@/frontend
 import { Button } from "@/frontend/components/ui/button";
 import { AvatarGroupCount } from "@/frontend/components/ui/avatar";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
-import { User, ExternalLink, LockKeyhole } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { VideoPlayer, VideoPlayerContent, VideoPlayerControlBar, VideoPlayerMuteButton, VideoPlayerPlayButton, VideoPlayerTimeDisplay, VideoPlayerTimeRange, VideoPlayerVolumeRange } from "@/frontend/components/kibo-ui/video-player";
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
+import { User, ExternalLink, LockKeyhole, Images } from "lucide-react";
 import { motion } from "framer-motion";
+import { useGlbState } from "@/frontend/utils/glbState";
 import { memo } from "react";
 
 function textFormatter(text: string) {
@@ -68,6 +73,7 @@ function textFormatter(text: string) {
 };
 
 const Shuoshuo = memo(({ post }: { post: shuoshuoType }) => {
+    const [glbState, setGlbState] = useGlbState();
     return <Card className="gap-0">
         <CardHeader>
             <CardTitle><div className="flex flex-row items-center gap-2">
@@ -85,7 +91,7 @@ const Shuoshuo = memo(({ post }: { post: shuoshuoType }) => {
             </div></CardTitle>
             <CardAction><Button variant="ghost" size='icon' asChild><a href={post.uni_key} target="_blank"><ExternalLink /></a></Button></CardAction>
         </CardHeader>
-        <CardContent className="flex flex-col">
+        <CardContent className="flex flex-col gap-2">
             <p className="whitespace-pre-wrap">{
                 post.conlist.map((con) => [
                     <Tooltip>
@@ -103,7 +109,43 @@ const Shuoshuo = memo(({ post }: { post: shuoshuoType }) => {
                     <span>{con.custom_display ? textFormatter(con.custom_display): ''}</span>,
                 ][con.type])
             }</p>
-            {/* TODO:图片和视频 */}
+            {post.video_total >= 1 || post.image_total >= 1 
+                ? <Card className="p-0"><CardContent className="p-0">
+                    <Collapsible>
+                        <CollapsibleTrigger asChild><Button variant="ghost" className="group w-full">
+                            <Images />{post.video_total >= 1 ? '视频' : ''}{post.image_total >= 1 && post.video_total >= 1 ? '和' : ''}{post.image_total >= 1 ? '图片' : ''}
+                        </Button></CollapsibleTrigger>
+                        <CollapsibleContent>
+                            {post.video_total >= 1 ? <div className="flex flex-col gap-2">
+                                {post.video.map((item, index) => <VideoPlayer className="w-full">
+                                    <VideoPlayerContent
+                                    className=" max-h-[75vh]"
+                                        crossOrigin="" muted preload="auto" slot="media"
+                                        src={`${glbState.serverUrl}/api/img?${new URLSearchParams({src: item.filename, })}`}
+                                    />
+                                    <VideoPlayerControlBar>
+                                        <VideoPlayerPlayButton />
+                                        <VideoPlayerTimeRange />
+                                        <VideoPlayerTimeDisplay showDuration />
+                                        <VideoPlayerMuteButton />
+                                        <VideoPlayerVolumeRange />
+                                    </VideoPlayerControlBar>
+                                </VideoPlayer>)}
+                            </div> : null}
+                            {post.image_total >= 1 ? <PhotoProvider>
+                                <div className="grid grid-cols-3 gap-2">
+                                    {post.images.map((item, index) => (
+                                        <PhotoView key={index} src={`${glbState.serverUrl}/api/img?${new URLSearchParams({src: item.filename})}`}>
+                                            <img className="object-cover w-full h-full max-h-[50vh] aspect-square" src={`${glbState.serverUrl}/api/img?${new URLSearchParams({src: item.filename, ...(glbState.allowOnline && {online: item.url})})}`} />
+                                        </PhotoView>
+                                    ))}
+                                </div>
+                            </PhotoProvider> : null}
+                        </CollapsibleContent>
+                    </Collapsible>
+                </CardContent></Card> 
+                : null
+            }
             {/* TODO:点赞转发位置 */}
             {/* TODO:评论 */}
         </CardContent>

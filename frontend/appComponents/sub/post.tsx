@@ -4,8 +4,10 @@ import { AvatarGroupCount } from "@/frontend/components/ui/avatar";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@/components/ui/item"
 import { VideoPlayer, VideoPlayerContent, VideoPlayerControlBar, VideoPlayerMuteButton, VideoPlayerPlayButton, VideoPlayerTimeDisplay, VideoPlayerTimeRange, VideoPlayerVolumeRange } from "@/frontend/components/kibo-ui/video-player";
+import {QRCodeSVG} from 'qrcode.react';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 import { User, ExternalLink, LockKeyhole, Images, Heart, Forward, MapPin, MessageSquare } from "lucide-react";
@@ -160,7 +162,7 @@ const Shuoshuo = memo(({ post }: { post: shuoshuoType }) => {
                             {post.image_total >= 1 ? <PhotoProvider>
                                 <div className="grid grid-cols-3 gap-2">
                                     {post.images.map((item, index) => (
-                                        <PhotoView key={index} src={`${glbState.serverUrl}/api/img?${new URLSearchParams({src: item.filename})}`}>
+                                        <PhotoView key={index} src={`${glbState.serverUrl}/api/img?${new URLSearchParams({src: item.filename, ...(glbState.allowOnline && {online: item.url})})}`}>
                                             <img className="object-cover w-full h-full max-h-[50vh] aspect-square" src={`${glbState.serverUrl}/api/img?${new URLSearchParams({src: item.filename, ...(glbState.allowOnline && {online: item.url})})}`} />
                                         </PhotoView>
                                     ))}
@@ -218,14 +220,91 @@ const Shuoshuo = memo(({ post }: { post: shuoshuoType }) => {
                         <Comments items={post.comments} />
                     </DrawerContent>
                 </Drawer>
-                
             </div>
         </CardContent>
     </Card>;
 });
 const Shares = memo(({ post }: { post: shareType }) => {
-    return <Card></Card>;
-    // TODO:
+    const [glbState] = useGlbState();
+    return <Card className="gap-0">
+        <CardHeader>
+            <CardTitle><div className="flex flex-row items-center gap-2">
+                <AvatarGroupCount><User /></AvatarGroupCount>
+                <div className="flex flex-col gap-1 items-start">
+                    <Tooltip><TooltipTrigger>{post.nickname}</TooltipTrigger>
+                    <TooltipContent>{post.uin}</TooltipContent></Tooltip>
+                    <p className="text-xs font-light text-muted-foreground items-center">
+                        {new Intl.DateTimeFormat('zh-CN', {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(post.created_time * 1000)}
+                        {' · '}
+                        来自{post.share_source.from.name}
+                    </p>
+                </div>
+            </div></CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-2">
+            <p className="whitespace-pre-wrap">{post.content}</p>
+            <HoverCard openDelay={0} closeDelay={0}>
+                <HoverCardTrigger>
+                    <Item variant="outline" asChild>
+                        <a target="_blank" href={post.share_source.url.replace(/^.*?(mqqapi:\/\/)/, '$1')}>
+                            {post.images[0]
+                                ? <ItemMedia>
+                                    <PhotoProvider> 
+                                        <PhotoView src={`${glbState.serverUrl}/api/img?${new URLSearchParams({src: post.images[0].filename, ...(glbState.allowOnline && {online: post.images[0].url})})}`}>
+                                            <img className="w-full max-w-30" src={`${glbState.serverUrl}/api/img?${new URLSearchParams({src: post.images[0].filename, ...(glbState.allowOnline && {online: post.images[0].url})})}`} />
+                                        </PhotoView>
+                                    </PhotoProvider>
+                                </ItemMedia>
+                            : null}
+                            <ItemContent>
+                                <ItemTitle className="line-clamp-1">{post.share_source.title}</ItemTitle>
+                                <ItemDescription>{post.share_source.desc}</ItemDescription>
+                            </ItemContent>
+                        </a>
+                    </Item>
+                </HoverCardTrigger>
+                <HoverCardContent side="left" className="flex flex-col p-3 gap-3 text-sm justify-center items-center"> 
+                    <p>也可以用手机扫描二维码</p>
+                    <QRCodeSVG bgColor="var(--popover)" fgColor="var(--foreground)" value={post.share_source.url.replace(/^.*?(mqqapi:\/\/)/, '$1')} />
+                </HoverCardContent>
+            </HoverCard>
+            <div className="flex flex-row justify-between items-center">
+                <p className="text-sm font-light text-muted-foreground items-center">
+                    {post.like_total >= 1
+                        ? <HoverCard openDelay={0} closeDelay={0}>
+                            <HoverCardTrigger>
+                                <Heart className="inline-block size-4 translate-y-[-2.25px]" /> {post.like_total}
+                            </HoverCardTrigger>
+                            <HoverCardContent>
+                                {post.likes.map((item, index) => [
+                                    <Tooltip> 
+                                        <TooltipTrigger>
+                                            <span className="text-sm">{item.nick}</span>
+                                        </TooltipTrigger>
+                                        <TooltipContent>{item.fuin}</TooltipContent>
+                                    </Tooltip>,
+                                <br />])}
+                            </HoverCardContent>
+                        </HoverCard>
+                    : null}
+                </p>
+                <Drawer direction={useIsMobile() ? 'bottom' : 'right'}>
+                    <DrawerTrigger>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <Button variant='ghost' size='icon-xs' disabled={post.comment_total == 0}><MessageSquare /></Button>
+                            </TooltipTrigger>
+                            <TooltipContent>{post.comment_total >= 1 ? `评论 (${post.comment_total})` : '无评论'}</TooltipContent>
+                        </Tooltip>
+                    </DrawerTrigger>
+                    <DrawerContent className="p-4">
+                        <DrawerHeader className="p-1 mb-3"><DrawerTitle className="text-2xl">评论</DrawerTitle></DrawerHeader>
+                        <Comments items={post.comments} />
+                    </DrawerContent>
+                </Drawer>
+            </div>
+        </CardContent>
+    </Card>;
 });
 
 export default function Post({ post }: { post: postType }) {

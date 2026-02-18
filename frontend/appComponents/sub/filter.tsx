@@ -257,6 +257,7 @@ export const TopBar = memo(()=>{
     const [shareSources, setShareSources] = useState<string[]>([]);
     const [ranges, setRanges] = useState<{ pic?: [number, number], media?: [number, number], likes?: [number, number], comments?: [number, number], fwds?: [number, number] }>({});
     const [filteredCount, setFilteredCount] = useState<number | null>(null);
+    const initializedRef = useRef(false);
     const serverUrl = glbState.serverUrl;
     const isShuoshuo = localFilter.type === 'shuoshuo' || localFilter.type === 'both';
     const isShare = localFilter.type === 'share' || localFilter.type === 'both';
@@ -351,7 +352,8 @@ export const TopBar = memo(()=>{
         }
     }, [serverUrl, localFilter, content, dateFilter, picTotal, mediaTotal, likes, comments, fwds, shareSource, isShuoshuo, isShare]);
     useEffect(() => {
-        if (dialogOpen) {
+        if (dialogOpen && !initializedRef.current) {
+            initializedRef.current = true;
             setLocalFilter(glbState.filter);
             if (glbState.filter.picTotal != null) {
                 if (typeof glbState.filter.picTotal === 'number') {
@@ -405,7 +407,10 @@ export const TopBar = memo(()=>{
             fetchRanges();
             fetchShareSources();
         }
-    }, [dialogOpen, glbState.filter, fetchRanges, fetchShareSources]);
+        if (!dialogOpen) {
+            initializedRef.current = false;
+        }
+    }, [dialogOpen]);
     useEffect(() => {
         if (dialogOpen) {
             fetchFilteredCount();

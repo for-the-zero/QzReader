@@ -464,7 +464,7 @@ export const TopBar = memo(()=>{
     };
     return (
         <div className="flex flex-row justify-between items-center gap-4">
-            <h1 className="text-2xl text-foreground">浏览</h1>
+            <h1 className="text-2xl text-foreground"></h1>
             <div className="flex-1 max-w-md">
                 <Input
                     className="w-full"

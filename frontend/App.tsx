@@ -1,10 +1,11 @@
 // react
 import { useEffect, useState } from "react";
 // shadcn
-import { SidebarProvider, Sidebar, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarContent } from "./components/ui/sidebar";
+import { SidebarProvider, Sidebar, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarContent, useSidebar } from "./components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
+import { Button } from "@/components/ui/button";
 // icon
-import { House, Compass, Dice5, ChartBarStacked, Archive } from 'lucide-react';
+import { House, Compass, Dice5, ChartBarStacked, Archive, PanelRightOpen, PanelRightClose } from 'lucide-react';
 // pages
 import Home from './appComponents/Home';
 import Browse from "./appComponents/Browse";
@@ -13,6 +14,20 @@ import Analysis from './appComponents/Analysis';
 // other
 import { AnimatePresence, motion } from "framer-motion";
 import { useGlbState } from "./utils/glbState";
+
+function SidebarToggle() {
+    const { state, toggleSidebar } = useSidebar();
+    return (
+        <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={toggleSidebar} 
+            className="absolute top-5 left-5 z-50 transition-transform duration-200 ease-[cubic-bezier(0.3,0.35,0,1)]"
+        >
+            {state === "collapsed" ? <PanelRightClose className="h-4 w-4" /> : <PanelRightOpen className="h-4 w-4" />}
+        </Button>
+    );
+};
 
 export default function App({}){
     const [activeTab, setActiveTab] = useState(0);
@@ -59,8 +74,9 @@ export default function App({}){
                     </SidebarMenu>
                 </SidebarContent>
             </Sidebar>
-            <main className="p-5 w-full">
+            <main className="p-5 w-full relative">
                 <Toaster />
+                <SidebarToggle />
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={activeTab}

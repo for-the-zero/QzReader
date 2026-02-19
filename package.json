@@ -2,7 +2,10 @@
   "name": "qzreader",
   "version": "1.0.0",
   "scripts": {
-    "dev": "bun backend/index.ts"
+    "dev": "bun backend/index.ts",
+    "build": "bun run build.ts",
+    "build:frontend": "bun run build.ts frontend",
+    "build:exe": "bun run build.ts exe"
   },
   "dependencies": {
     "@bindrs/rfd": "^2.2.2",

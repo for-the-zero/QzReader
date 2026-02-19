@@ -26,7 +26,7 @@ function getFileName(path: string){
 
 export default function Home({}){
     const [glbState, setGlbState] = useGlbState();
-    const [serverUrl, setServerURL] = useState('http://' + window.location.host);
+    const [serverUrl, setServerURL] = useState(glbState.serverUrl);
     const [filePath, setFilePath] = useState<[null | string, null | string]>([null,null]);
 
     useEffect(()=>{
